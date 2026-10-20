@@ -1,6 +1,6 @@
-# NJP to Darjeeling
+# Darjeeling, December
 
-A one-page guide to getting from New Jalpaiguri (NJP) station to Darjeeling for a group of six arriving around 6 AM in December: bus, shared jeep, reserved SUV, Innova, hostel pickup and toy train, with costs and a recommended plan.
+The site for our Darjeeling trip, 20–25 December 2026: the day-by-day plan, the train from Bhubaneswar, getting from NJP up to Darjeeling, our stay at Bubble Beds, places to see, food and packing.
 
 Live at https://darz.pages.dev
 
