@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Every way from NJP station to Darjeeling for a group of six arriving at 6 AM in December, with costs and a recommended plan.">
+<title>NJP to Darjeeling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: one narrow column, a quick-compare table up top, then one card per option, then the plan and tips. */
+:root {
+  color-scheme: light;
+  --bg: #f4f6f3;
+  --surface: #ffffff;
+  --fg: #1c2420;
+  --muted: #5d6a63;
+  --line: #dde3de;
+  --accent: #2f6b4f;      /* tea-garden green */
+  --accent-soft: #e3efe8;
+  --good: #2f6b4f;
+  --warn: #9a6a12;
+  --warn-soft: #f7ecd6;
+  --bad: #a3402f;
+  --bad-soft: #f6e1dc;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Source Sans 3", "Helvetica Neue", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121714; --surface: #1a211d; --fg: #e6ece8; --muted: #9aa8a0; --line: #2c3631;
+    --accent: #7fc4a0; --accent-soft: #1f3329; --good: #7fc4a0;
+    --warn: #e2b866; --warn-soft: #3a2f1a; --bad: #e8907e; --bad-soft: #3b2420;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121714; --surface: #1a211d; --fg: #e6ece8; --muted: #9aa8a0; --line: #2c3631;
+  --accent: #7fc4a0; --accent-soft: #1f3329; --good: #7fc4a0;
+  --warn: #e2b866; --warn-soft: #3a2f1a; --bad: #e8907e; --bad-soft: #3b2420;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 16px/1.55 var(--body);
+  padding-block: 32px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; font-weight: 800; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+header { display: flex; flex-direction: column; gap: 10px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 0.9rem; }
+section { display: flex; flex-direction: column; gap: 14px; }
+.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 520px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; }
+tr:last-child td { border-bottom: 0; }
+tr.pick td { background: var(--accent-soft); }
+td strong { font-weight: 700; }
+
+.pill { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.good { background: var(--accent-soft); color: var(--good); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+
+.options { display: flex; flex-direction: column; gap: 14px; }
+.opt { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.opt.pick { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.opt-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; }
+.price { font-family: var(--display); font-weight: 800; font-size: 1.3rem; }
+.price small { font-family: var(--body); font-weight: 600; font-size: 0.85rem; color: var(--muted); }
+.opt ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 4px; }
+.pc { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; }
+.pc > div { min-width: 0; }
+.pc h4 { margin: 0 0 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.pc .pro h4 { color: var(--good); }
+.pc .con h4 { color: var(--bad); }
+@media (max-width: 520px) { .pc { grid-template-columns: 1fr; } }
+
+ol.plan { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+ol.plan li { display: grid; grid-template-columns: 74px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+ol.plan li:last-child { border-bottom: 0; }
+ol.plan time { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); }
+
+.tips { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+.note { font-size: 0.88rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 0.85rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<main>
+  <header>
+    <span class="eyebrow">Darjeeling trip · December · 6 friends</span>
+    <h1>NJP to Darjeeling</h1>
+    <p class="muted">Every way up the hill from New Jalpaiguri station if we land around 6 AM, with the cost for all six of us. We're staying at Bubble Beds, 32 Lebong Cart Road, below the zoo.</p>
+    <div class="facts">
+      <span class="fact">About 65–75 km uphill</span>
+      <span class="fact">3–5 hours by road</span>
+      <span class="fact">Hostel check-in 1 PM</span>
+      <span class="fact">Budget ₹2,000–2,500 total</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Quick compare</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Option</th><th>Total for 6</th><th>Per person</th><th>Time</th><th>Fits budget?</th></tr>
+        </thead>
+        <tbody>
+          <tr class="pick"><td><strong>NBSTC bus</strong> (via Siliguri)</td><td class="num">₹1,050–1,700</td><td class="num">₹175–285</td><td class="num">about 4 h total</td><td><span class="pill good">Yes, cheapest</span></td></tr>
+          <tr><td><strong>Shared jeep</strong></td><td class="num">₹2,000–2,900</td><td class="num">₹335–480</td><td class="num">3.5–5 h</td><td><span class="pill warn">Just about</span></td></tr>
+          <tr><td><strong>Reserved Sumo / Bolero</strong></td><td class="num">₹2,800–3,500</td><td class="num">₹470–585</td><td class="num">3.5–4.5 h</td><td><span class="pill bad">Over</span></td></tr>
+          <tr><td><strong>Prepaid Innova</strong></td><td class="num">₹4,000–5,000</td><td class="num">₹670–835</td><td class="num">3.5–4.5 h</td><td><span class="pill bad">Over</span></td></tr>
+          <tr><td><strong>Hostel pickup</strong></td><td class="num">Ask them</td><td class="num">–</td><td class="num">3.5–4.5 h</td><td><span class="pill warn">Ask</span></td></tr>
+          <tr><td><strong>Toy train</strong></td><td class="num">–</td><td class="num">–</td><td class="num">about 7.5 h</td><td><span class="pill bad">Not practical</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend"><span>Totals include getting to the hostel door.</span><span>Per person is the total divided by 6.</span></div>
+  </section>
+
+  <section>
+    <h2>The options</h2>
+    <div class="options">
+
+      <article class="opt pick">
+        <div class="opt-head">
+          <h3>1. Government bus (NBSTC) via Siliguri <span class="pill good">Our pick</span></h3>
+          <span class="price num">₹1,050–1,700 <small>for 6</small></span>
+        </div>
+        <p>The bus leaves from <strong>Tenzing Norgay Central Bus Stand in Siliguri</strong>, not from NJP. Take a toto from the station first.</p>
+        <ul>
+          <li><strong>Departures:</strong> 7:00 AM and 8:00 AM, arriving about 10:00 and 11:00 AM. This is the non-AC 2+2 seater via Rohini.</li>
+          <li><strong>Fare:</strong> <span class="num">₹105</span> a seat, checked on redBus and MakeMyTrip in Oct 2026. Online booking may add a small fee.</li>
+          <li><strong>Getting to the bus:</strong> NJP to Tenzing Norgay by toto or auto takes about 25 min and costs about ₹200–500 for 6. You may need two totos.</li>
+          <li><strong>From the Darjeeling bus stand:</strong> the bus stops at Chowk Bazaar. Taking 1–2 taxis to the hostel costs about ₹200–500.</li>
+        </ul>
+        <div class="pc">
+          <div class="pro"><h4>Good</h4><ul><li>The cheapest by far</li><li>Leaves at a fixed time</li><li>You can book online ahead</li></ul></div>
+          <div class="con"><h4>Watch out</h4><ul><li>Only 4–5 seats per bus showed online. Book early or split across both buses</li><li>Limited room for big bags</li><li>One extra transfer at each end</li></ul></div>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="opt-head">
+          <h3>2. Shared jeep from NJP</h3>
+          <span class="price num">₹2,000–2,900 <small>for 6</small></span>
+        </div>
+        <p>Jeeps leave from the main taxi stand just outside NJP station. Ask for "Darjeeling shared". Shared seats aren't sold at the prepaid booth, which is for whole cars.</p>
+        <ul>
+          <li><strong>Fare:</strong> about ₹300–400 a seat, and up to about ₹500 in peak December. The total above includes a taxi to the hostel.</li>
+          <li><strong>Our limit:</strong> about ₹330 a seat. Above that, the jeep alone costs more than ₹2,000 for 6. Agree the fare before bags go on the roof.</li>
+          <li>The jeep leaves only when it's full (about 10–11 people). We fill 6 seats, so it should go faster. Buying a 7th seat gives more room and can get us moving sooner.</li>
+          <li>Bags go on the roof under a tarp.</li>
+          <li>It drops us at the Darjeeling motor stand, not the hostel.</li>
+        </ul>
+        <div class="pc">
+          <div class="pro"><h4>Good</h4><ul><li>Straight from NJP with no transfer</li><li>A bit quicker than the bus</li></ul></div>
+          <div class="con"><h4>Watch out</h4><ul><li>Few jeeps run at 6 AM, so we may wait until about 7–7:30</li><li>Cramped</li><li>Fix the fare before loading bags</li></ul></div>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="opt-head">
+          <h3>3. Reserved Sumo or Bolero</h3>
+          <span class="price num">₹2,800–3,500 <small>for 6</small></span>
+        </div>
+        <p>A whole 8–10 seater for the group. The prepaid booth charges about ₹3,500, and drivers outside sometimes go lower if we bargain.</p>
+        <div class="pc">
+          <div class="pro"><h4>Good</h4><ul><li>Door to door</li><li>Leaves right away at 6 AM</li><li>We can stop for chai and photos</li></ul></div>
+          <div class="con"><h4>Watch out</h4><ul><li>Over budget</li><li>Tight with big bags</li></ul></div>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="opt-head">
+          <h3>4. Prepaid Innova</h3>
+          <span class="price num">₹4,000–5,000 <small>for 6</small></span>
+        </div>
+        <p>The comfortable option. Book at the prepaid taxi booth opposite the station exit, which reportedly runs 24 hours. Fares were about ₹4,000 in 2025 and will likely be higher in December.</p>
+        <div class="pc">
+          <div class="pro"><h4>Good</h4><ul><li>Most comfortable, with room for luggage</li><li>Fixed fare on a printed slip</li></ul></div>
+          <div class="con"><h4>Watch out</h4><ul><li>About double our budget</li></ul></div>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="opt-head">
+          <h3>5. Pickup arranged by Bubble Beds</h3>
+          <span class="price num">Ask them</span>
+        </div>
+        <p>The hostel's tour package includes pickup from NJP, Siliguri or Bagdogra. WhatsApp <strong class="num">+91 81000 94453</strong> for a price. If it's close to the Sumo fare, the driver waits for us and knows the way.</p>
+      </article>
+
+      <article class="opt">
+        <div class="opt-head">
+          <h3>6. Toy train <span class="pill bad">Skip for arrival</span></h3>
+          <span class="price num">–</span>
+        </div>
+        <p>It leaves NJP at 10:00 AM and takes about 7.5 hours, and it gets suspended after landslides. Do the short Darjeeling–Ghum joyride (about ₹800) during the trip instead.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>The plan if we take the bus</h2>
+    <ol class="plan">
+      <li><time>6:00</time><span>Arrive at NJP. Grab chai and don't talk to touts inside the station.</span></li>
+      <li><time>6:15</time><span>Toto or auto to Tenzing Norgay Central Bus Stand in Siliguri (about 25 min). Agree the fare first.</span></li>
+      <li><time>7:00</time><span>Take the NBSTC bus to Darjeeling. The 8:00 AM bus is the relaxed backup.</span></li>
+      <li><time>10–11</time><span>Reach the Darjeeling bus stand at Chowk Bazaar. Take a taxi to Bubble Beds, below the zoo.</span></li>
+      <li><time>1:00 PM</time><span>Check in. Until then, leave bags at reception and go eat.</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Good to know</h2>
+    <ul class="tips">
+      <li><strong>Bus seats open about 3 weeks ahead</strong> on redBus and MakeMyTrip. December dates aren't open yet, so check in late November and book all 6 together.</li>
+      <li><strong>Roads:</strong> Rohini Road is the fastest. Hill Cart Road via Kurseong is the slower backup, and Pankhabari Road is in bad shape. Ask the hostel the day before which road is open.</li>
+      <li><strong>December mornings are foggy and cold</strong> (about 2–10°C), so keep a jacket in your hand luggage.</li>
+      <li><strong>Prepaid booth:</strong> keep the slip and check that it says "Lebong Cart Road, below Zoo". Don't pay the driver extra.</li>
+      <li><strong>The direct NJP–Darjeeling NBSTC bus</strong> (listed at about 8:30 AM) doesn't show online. Ask at NJP whether it's running, because it would skip the Siliguri transfer.</li>
+    </ul>
+  </section>
+
+  <p class="note">Bus fares and times were checked on redBus and MakeMyTrip on 20 Oct 2026. Toto, taxi, jeep and SUV prices are estimates from travel forums and 2025–26 guides, so confirm them on the day.</p>
+</main>
+</body>
+</html>
