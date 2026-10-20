@@ -4,6 +4,10 @@ The site for our Darjeeling trip, 20–25 December 2026: the day-by-day plan, th
 
 Live at https://darz.pages.dev
 
+## Design
+
+See [DESIGN.md](DESIGN.md) for the themes, colours, type, motion and icon rules. Icons live in `assets/icons.svg`.
+
 ## Deploy
 
 The site is a single static `index.html` on Cloudflare Pages (project `darz`), connected to this repo. Every push to `main` deploys automatically.

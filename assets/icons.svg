@@ -1,0 +1,570 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+
+  <!-- ═══════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════ -->
+
+  <!-- Calendar with a tiny triangular flag on top-right -->
+  <symbol id="i-plan" viewBox="0 0 24 24">
+    <title>Plan</title>
+    <!-- calendar body -->
+    <rect x="3" y="5" width="15" height="14" rx="1.5"/>
+    <!-- header rule -->
+    <line x1="3" y1="9" x2="18" y2="9"/>
+    <!-- hanger ticks -->
+    <line x1="7" y1="3" x2="7" y2="6"/>
+    <line x1="14" y1="3" x2="14" y2="6"/>
+    <!-- date dots -->
+    <line x1="7" y1="13" x2="7" y2="13"/>
+    <line x1="11" y1="13" x2="11" y2="13"/>
+    <!-- flag pole -->
+    <line x1="20" y1="3" x2="20" y2="9"/>
+    <!-- flag triangle: pole at 20,3; flag flies left -->
+    <polyline points="20,3 16,5 20,7"/>
+  </symbol>
+
+  <!-- Darjeeling toy train steam engine, side view -->
+  <symbol id="i-train" viewBox="0 0 24 24"><title>Toy train</title><path d="M3 16v-4a2 2 0 0 1 2-2h8v6"/><path d="M13 16V7h6v9"/><path d="M12 7h8"/><path d="M5.5 6h3.5l-.75 4h-2z"/><rect x="15" y="9" width="2.5" height="2.5" rx=".5"/><path d="M2 16h19"/><circle cx="7" cy="18.5" r="1.75"/><circle cx="12" cy="18.5" r="1.75"/><circle cx="17.5" cy="18.5" r="1.75"/><path d="M9.5 4c.5-1.4 2.5-1.4 3 0"/></symbol>
+
+  <!-- Winding hairpin mountain road with peak -->
+  <symbol id="i-road" viewBox="0 0 24 24"><title>Hill road</title><path d="M4 21h9a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h5"/><path d="M13.5 9 17 3l3.5 6z"/></symbol>
+
+  <!-- Hill cottage with steep sloped roof, door, window -->
+  <symbol id="i-stay" viewBox="0 0 24 24">
+    <title>Stay</title>
+    <!-- steep roof -->
+    <polyline points="3,12 12,3 21,12"/>
+    <!-- walls -->
+    <rect x="5" y="12" width="14" height="9" rx="0.5"/>
+    <!-- door -->
+    <rect x="10" y="16" width="4" height="5" rx="0.5"/>
+    <!-- window -->
+    <rect x="6" y="14" width="3" height="3" rx="0.3"/>
+    <!-- window cross -->
+    <line x1="7.5" y1="14" x2="7.5" y2="17"/>
+    <line x1="6" y1="15.5" x2="9" y2="15.5"/>
+  </symbol>
+
+  <!-- Mountain peak with map pin above it -->
+  <symbol id="i-places" viewBox="0 0 24 24">
+    <title>Places</title>
+    <!-- mountain peaks -->
+    <polyline points="2,20 9,10 13,15 16,11 22,20"/>
+    <!-- snow cap on tallest peak -->
+    <polyline points="7.5,12.5 9,10 10.5,12.5"/>
+    <!-- map pin above mountain -->
+    <path d="M16,2 C13.8,2 12,3.8 12,6 C12,8.8 16,13 16,13 C16,13 20,8.8 20,6 C20,3.8 18.2,2 16,2 Z"/>
+    <circle cx="16" cy="6" r="1.3" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Steaming momo (pleated dumpling) with 2 steam lines -->
+  <symbol id="i-food" viewBox="0 0 24 24">
+    <title>Food</title>
+    <!-- momo body: half-moon shape -->
+    <path d="M5,15 C5,11 8,8 12,8 C16,8 19,11 19,15"/>
+    <!-- bottom flat edge + seam pleats -->
+    <path d="M5,15 C5,17 8,18 12,18 C16,18 19,17 19,15"/>
+    <!-- pleat lines on top -->
+    <path d="M9,8.5 C9.5,7 10,6 12,6"/>
+    <path d="M12,6 C14,6 14.5,7 15,8.5"/>
+    <!-- gathered top knot -->
+    <path d="M10.5,8 C11,7 11.5,6.5 12,6 C12.5,6.5 13,7 13.5,8"/>
+    <!-- steam lines -->
+    <path d="M9,4 C9,3 10,3 10,2"/>
+    <path d="M13,4 C13,3 14,3 14,2"/>
+  </symbol>
+
+  <!-- Backpack with top flap and front pocket -->
+  <symbol id="i-pack" viewBox="0 0 24 24">
+    <title>Pack</title>
+    <!-- main body -->
+    <rect x="6" y="7" width="12" height="14" rx="2"/>
+    <!-- top flap -->
+    <path d="M6,9 C6,6.5 8,5 12,5 C16,5 18,6.5 18,9"/>
+    <!-- shoulder straps suggestion (two curves at top) -->
+    <path d="M9,5 C9,3.5 10,3 11,3"/>
+    <path d="M15,5 C15,3.5 14,3 13,3"/>
+    <!-- front pocket -->
+    <rect x="8" y="13" width="8" height="5" rx="1"/>
+    <!-- pocket zip line -->
+    <line x1="8" y1="15" x2="16" y2="15"/>
+  </symbol>
+
+  <!-- ═══════════════════════════════════════════
+       PLACES
+  ═══════════════════════════════════════════ -->
+
+  <!-- Half sun rising behind two mountain peaks with short rays -->
+  <symbol id="i-sunrise" viewBox="0 0 24 24">
+    <title>Sunrise</title>
+    <!-- two mountain peaks -->
+    <polyline points="2,17 8,9 12,14 16,9 22,17"/>
+    <!-- sun semi-circle rising between peaks -->
+    <path d="M7,17 A5,5 0 0 1 17,17"/>
+    <!-- rays above -->
+    <line x1="12" y1="4" x2="12" y2="2"/>
+    <line x1="16.2" y1="5.5" x2="17.5" y2="4"/>
+    <line x1="7.8" y1="5.5" x2="6.5" y2="4"/>
+    <line x1="18.5" y1="9" x2="20" y2="9"/>
+    <line x1="5.5" y1="9" x2="4" y2="9"/>
+  </symbol>
+
+  <!-- Railway track making one spiral loop (Batasia Loop) -->
+  <symbol id="i-loop" viewBox="0 0 24 24">
+    <title>Batasia Loop</title>
+    <!-- outer track: two parallel rails of a spiral loop -->
+    <!-- outer rail -->
+    <path d="M12,21 C6,21 2,17.5 2,13 C2,8.5 6,5 12,5 C18,5 22,8.5 22,13 C22,16 20,18 17,19 C14,20 12,18.5 12,16.5 C12,14 14,13 16,13 C18,13 19,14.5 18,16"/>
+    <!-- inner rail (offset inward) -->
+    <path d="M12,19 C7,19 4,16 4,13 C4,10 7,7 12,7 C17,7 20,10 20,13 C20,15 18.5,16.5 16.5,17.5 C14.5,18.5 14,17 14,16 C14,15 15,14.5 16,14.5"/>
+    <!-- a few sleepers (cross ties) -->
+    <line x1="4" y1="13" x2="2" y2="13"/>
+    <line x1="12" y1="5" x2="12" y2="7"/>
+    <line x1="20" y1="13" x2="22" y2="13"/>
+  </symbol>
+
+  <!-- Tibetan monastery: wide base, tiered pagoda roof, finial -->
+  <symbol id="i-monastery" viewBox="0 0 24 24">
+    <title>Monastery</title>
+    <!-- wide base platform -->
+    <rect x="2" y="18" width="20" height="3" rx="0.5"/>
+    <!-- main building body -->
+    <rect x="5" y="12" width="14" height="7" rx="0.3"/>
+    <!-- lower roof tier -->
+    <polyline points="4,12 12,8 20,12"/>
+    <!-- upper tier body -->
+    <rect x="8" y="7" width="8" height="5" rx="0.3"/>
+    <!-- upper roof tier -->
+    <polyline points="7,7 12,4 17,7"/>
+    <!-- finial spire -->
+    <line x1="12" y1="4" x2="12" y2="2"/>
+    <!-- windows in main body -->
+    <rect x="7" y="14" width="3" height="3" rx="0.3"/>
+    <rect x="14" y="14" width="3" height="3" rx="0.3"/>
+    <!-- central door -->
+    <path d="M11,19 L11,16 Q11,15 12,15 Q13,15 13,16 L13,19"/>
+  </symbol>
+
+  <!-- Red panda paw print: pad + 4 toe circles -->
+  <symbol id="i-paw" viewBox="0 0 24 24">
+    <title>Red Panda Paw</title>
+    <!-- main pad -->
+    <ellipse cx="12" cy="15" rx="5" ry="4" fill="currentColor" stroke="none"/>
+    <!-- 4 toe pads -->
+    <circle cx="7" cy="10" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="11" cy="8" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="8.5" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="18" cy="11" r="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Tea leaf: single leaf with midrib, two veins, small bud -->
+  <symbol id="i-tea" viewBox="0 0 24 24">
+    <title>Tea Leaf</title>
+    <!-- leaf outline -->
+    <path d="M12,20 C8,20 4,16 5,10 C6,5 9,3 12,3 C15,3 18,5 19,10 C20,16 16,20 12,20 Z"/>
+    <!-- midrib -->
+    <line x1="12" y1="20" x2="12" y2="4"/>
+    <!-- veins -->
+    <line x1="12" y1="10" x2="8" y2="7"/>
+    <line x1="12" y1="10" x2="16" y2="7"/>
+    <line x1="12" y1="14" x2="8" y2="12"/>
+    <line x1="12" y1="14" x2="16" y2="12"/>
+    <!-- small bud at top -->
+    <path d="M12,3 C12,3 11,2 12,2 C13,2 12,3 12,3"/>
+  </symbol>
+
+  <!-- Ropeway gondola hanging from diagonal cable -->
+  <symbol id="i-cablecar" viewBox="0 0 24 24">
+    <title>Cable Car</title>
+    <!-- diagonal cable from top-left to top-right -->
+    <line x1="2" y1="5" x2="22" y2="9"/>
+    <!-- hanger wire from cable to gondola -->
+    <line x1="12" y1="7" x2="12" y2="10"/>
+    <!-- pulley wheel at cable -->
+    <circle cx="12" cy="7" r="1" fill="currentColor" stroke="none"/>
+    <!-- gondola body -->
+    <rect x="8" y="10" width="8" height="7" rx="1.5"/>
+    <!-- gondola window -->
+    <rect x="10" y="12" width="4" height="3" rx="0.5"/>
+    <!-- gondola bottom curve -->
+    <path d="M8,17 Q12,19 16,17"/>
+  </symbol>
+
+  <!-- Buddhist stupa: dome on base with spire -->
+  <symbol id="i-stupa" viewBox="0 0 24 24">
+    <title>Stupa</title>
+    <!-- base platform -->
+    <rect x="3" y="19" width="18" height="2" rx="0.5"/>
+    <!-- second tier base -->
+    <rect x="6" y="16" width="12" height="3" rx="0.3"/>
+    <!-- dome -->
+    <path d="M7,16 C7,11 17,11 17,16"/>
+    <!-- harmika (square box on top of dome) -->
+    <rect x="10" y="8" width="4" height="3" rx="0.3"/>
+    <!-- spire -->
+    <line x1="12" y1="8" x2="12" y2="3"/>
+    <!-- spire discs (3 rings) -->
+    <line x1="10.5" y1="7" x2="13.5" y2="7"/>
+    <line x1="11" y1="5.5" x2="13" y2="5.5"/>
+    <line x1="11.5" y1="4" x2="12.5" y2="4"/>
+  </symbol>
+
+  <!-- Victorian street lamp: post with lantern top -->
+  <symbol id="i-lamp" viewBox="0 0 24 24"><title>Street lamp</title><path d="M12 3v2"/><path d="M10 5h4l1 5H9z"/><path d="M12 10v10"/><path d="M9 20h6"/><path d="M10 14h4"/></symbol>
+
+  <!-- Two pine trees, one taller -->
+  <symbol id="i-pine" viewBox="0 0 24 24">
+    <title>Pine Trees</title>
+    <!-- taller left tree -->
+    <polyline points="9,21 9,18"/>
+    <polyline points="5,18 9,11 13,18 5,18"/>
+    <polyline points="6,15 9,9 12,15"/>
+    <polyline points="7,12 9,7 11,12"/>
+    <!-- shorter right tree -->
+    <polyline points="16,21 16,18"/>
+    <polyline points="13,18 16,13 19,18 13,18"/>
+    <polyline points="14,16 16,11 18,16"/>
+  </symbol>
+
+  <!-- Lake: oval with 2 ripple lines and small hill behind -->
+  <symbol id="i-lake" viewBox="0 0 24 24">
+    <title>Lake</title>
+    <!-- hill behind the lake -->
+    <path d="M7,13 C7,13 10,8 14,10 C18,12 18,13 18,13"/>
+    <!-- lake oval -->
+    <ellipse cx="12" cy="16" rx="9" ry="4"/>
+    <!-- ripple lines inside oval -->
+    <path d="M8,15 C9,14.5 10,15 11,14.5"/>
+    <path d="M13,16.5 C14,16 15,16.5 16,16"/>
+  </symbol>
+
+  <!-- ═══════════════════════════════════════════
+       FOOD
+  ═══════════════════════════════════════════ -->
+
+  <!-- Tea cup on saucer with 2 steam lines -->
+  <symbol id="i-cup" viewBox="0 0 24 24">
+    <title>Tea Cup</title>
+    <!-- saucer -->
+    <ellipse cx="12" cy="19" rx="8" ry="2"/>
+    <!-- cup body -->
+    <path d="M7,13 L8,19 L16,19 L17,13 Z"/>
+    <!-- cup top opening (ellipse) -->
+    <ellipse cx="12" cy="13" rx="5" ry="1.5"/>
+    <!-- handle -->
+    <path d="M17,14 C20,14 20,17 17,17"/>
+    <!-- steam lines -->
+    <path d="M10,10 C10,9 11,9 11,8 C11,7 10,7 10,6"/>
+    <path d="M14,10 C14,9 15,9 15,8 C15,7 14,7 14,6"/>
+  </symbol>
+
+  <!-- Round bakery bun with 2 score marks -->
+  <symbol id="i-bread" viewBox="0 0 24 24">
+    <title>Bread</title>
+    <!-- bun body -->
+    <path d="M4,14 C4,9 8,6 12,6 C16,6 20,9 20,14 C20,17 18,18 12,18 C6,18 4,17 4,14 Z"/>
+    <!-- flat bottom -->
+    <line x1="4" y1="18" x2="20" y2="18"/>
+    <!-- two score marks on top -->
+    <path d="M9,8 C9.5,7 10.5,7 11,8"/>
+    <path d="M13,7.5 C13.5,6.5 14.5,6.5 15,7.5"/>
+  </symbol>
+
+  <!-- Bowl of noodles (thukpa) with chopsticks resting on top -->
+  <symbol id="i-noodles" viewBox="0 0 24 24">
+    <title>Noodles</title>
+    <!-- bowl -->
+    <path d="M4,11 C4,17 8,20 12,20 C16,20 20,17 20,11"/>
+    <!-- bowl rim ellipse -->
+    <ellipse cx="12" cy="11" rx="8" ry="2.5"/>
+    <!-- noodle squiggles inside bowl -->
+    <path d="M7,13 C8,12 9,14 10,13 C11,12 12,14 13,13 C14,12 15,14 16,13"/>
+    <path d="M8,15 C9,14.5 10,16 11,15"/>
+    <!-- chopsticks resting diagonally across top -->
+    <line x1="6" y1="9" x2="18" y2="7"/>
+    <line x1="7" y1="10" x2="19" y2="8"/>
+  </symbol>
+
+  <!-- Chili pepper -->
+  <symbol id="i-chili" viewBox="0 0 24 24">
+    <title>Chili</title>
+    <!-- stem + leaf -->
+    <path d="M13,4 C13,3 14,2 15,2 C14,3 14,4 13,5"/>
+    <path d="M13,5 C12,4 11,3 10,4 C11,4 12,5 13,5"/>
+    <!-- chili body curving down-left -->
+    <path d="M13,5 C13,7 15,9 15,13 C15,17 12,19 10,19 C8,19 7,17 7,15 C7,12 9,10 11,9 C12,8 13,7 13,5"/>
+    <!-- tip -->
+    <path d="M10,19 C9.5,20 9,21 9,22"/>
+    <!-- highlight line -->
+    <path d="M11,7 C12,9 13,12 12,15"/>
+  </symbol>
+
+  <!-- ═══════════════════════════════════════════
+       PACK
+  ═══════════════════════════════════════════ -->
+
+  <!-- Puffer jacket with horizontal quilt lines and zip -->
+  <symbol id="i-jacket" viewBox="0 0 24 24"><title>Puffer jacket</title><path d="M9 3h6l5 3.5V20H4V6.5z"/><path d="M9 3l3 2.2L15 3"/><path d="M12 5.2V20"/><path d="M4 10.5h16M4 15h16"/></symbol>
+
+  <!-- ID card: rectangle, photo square left, 2 text lines right -->
+  <symbol id="i-id" viewBox="0 0 24 24">
+    <title>ID Card</title>
+    <!-- card body -->
+    <rect x="2" y="6" width="20" height="13" rx="1.5"/>
+    <!-- photo square -->
+    <rect x="5" y="9" width="5" height="5" rx="0.5"/>
+    <!-- person silhouette hint in photo -->
+    <circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+    <path d="M5.5,14 C5.5,12.5 9.5,12.5 9.5,14"/>
+    <!-- text lines -->
+    <line x1="13" y1="11" x2="20" y2="11"/>
+    <line x1="13" y1="13.5" x2="18" y2="13.5"/>
+    <!-- card notch for lanyard hole -->
+    <circle cx="12" cy="6" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Power bank / battery with a charge bolt -->
+  <symbol id="i-battery" viewBox="0 0 24 24">
+    <title>Power Bank</title>
+    <!-- main battery body -->
+    <rect x="3" y="7" width="16" height="10" rx="2"/>
+    <!-- positive terminal nub -->
+    <rect x="19" y="10" width="2" height="4" rx="1"/>
+    <!-- charge bolt (lightning) -->
+    <polyline points="12,10 10,13 13,13 11,17"/>
+  </symbol>
+
+  <!-- Hiking boot side view -->
+  <symbol id="i-boot" viewBox="0 0 24 24">
+    <title>Hiking Boot</title>
+    <!-- upper (ankle) -->
+    <path d="M8,4 L8,14"/>
+    <!-- boot upper outline -->
+    <path d="M8,4 C8,4 14,4 14,8 L14,14 L18,14 C19,14 20,15 20,16 L20,18 L4,18 L4,17 C4,16 4.5,15 6,15 L8,15 L8,4"/>
+    <!-- toe box curve -->
+    <path d="M16,14 C18,14 20,15 20,16"/>
+    <!-- sole -->
+    <rect x="4" y="18" width="16" height="2" rx="1"/>
+    <!-- laces -->
+    <line x1="8" y1="7" x2="14" y2="7"/>
+    <line x1="8" y1="9.5" x2="14" y2="9.5"/>
+    <line x1="8" y1="12" x2="14" y2="12"/>
+  </symbol>
+
+  <!-- Banknote with a circle in the middle -->
+  <symbol id="i-cash" viewBox="0 0 24 24">
+    <title>Cash</title>
+    <!-- banknote body -->
+    <rect x="2" y="6" width="20" height="12" rx="1.5"/>
+    <!-- central circle (coin/value) -->
+    <circle cx="12" cy="12" r="3.5"/>
+    <!-- corner decoration circles (small) -->
+    <circle cx="5" cy="9" r="1"/>
+    <circle cx="5" cy="15" r="1"/>
+    <circle cx="19" cy="9" r="1"/>
+    <circle cx="19" cy="15" r="1"/>
+  </symbol>
+
+  <!-- ═══════════════════════════════════════════
+       UI
+  ═══════════════════════════════════════════ -->
+
+  <!-- Sun: circle + 8 short rays -->
+  <symbol id="i-sun" viewBox="0 0 24 24">
+    <title>Sun</title>
+    <circle cx="12" cy="12" r="4"/>
+    <line x1="12" y1="2" x2="12" y2="5"/>
+    <line x1="12" y1="19" x2="12" y2="22"/>
+    <line x1="2" y1="12" x2="5" y2="12"/>
+    <line x1="19" y1="12" x2="22" y2="12"/>
+    <line x1="4.9" y1="4.9" x2="7.1" y2="7.1"/>
+    <line x1="16.9" y1="16.9" x2="19.1" y2="19.1"/>
+    <line x1="19.1" y1="4.9" x2="16.9" y2="7.1"/>
+    <line x1="7.1" y1="16.9" x2="4.9" y2="19.1"/>
+  </symbol>
+
+  <!-- Crescent moon with one small star -->
+  <symbol id="i-moon" viewBox="0 0 24 24">
+    <title>Moon</title>
+    <!-- crescent: clip a circle with another circle via path -->
+    <path d="M12,3 C8,3 5,6.5 5,11 C5,15.5 8,19 12,19 C9,19 7,16 7,13 C7,9 9.5,6 13,5 C12.7,4.3 12.3,3.5 12,3 Z"/>
+    <!-- small star -->
+    <path d="M18,5 L18.5,7 L20,7 L19,8.2 L19.5,10 L18,9 L16.5,10 L17,8.2 L16,7 L17.5,7 Z" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Chevron pointing down -->
+  <symbol id="i-chevron" viewBox="0 0 24 24">
+    <title>Chevron Down</title>
+    <polyline points="5,9 12,16 19,9"/>
+  </symbol>
+
+  <!-- Two overlapping rounded rectangles (copy) -->
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <title>Copy</title>
+    <!-- back rectangle -->
+    <rect x="8" y="4" width="12" height="14" rx="2"/>
+    <!-- front rectangle -->
+    <rect x="4" y="8" width="12" height="14" rx="2"/>
+  </symbol>
+
+  <!-- Check mark -->
+  <symbol id="i-check" viewBox="0 0 24 24">
+    <title>Check</title>
+    <polyline points="4,12 9,18 20,6"/>
+  </symbol>
+
+  <!-- Phone handset -->
+  <symbol id="i-phone" viewBox="0 0 24 24">
+    <title>Phone</title>
+    <path d="M6,3 C5,3 4,4 4,5 L4,8 C4,9 5,10 7,10 C8,13 11,16 14,17 C14,19 15,20 16,20 L19,20 C20,20 21,19 21,18 L21,16 C21,15 20,14 19,14 L17,13 C16,13 15,14 15,15 C13,14 10,11 9,9 C10,9 11,8 11,7 L10,5 C10,4 9,3 8,3 Z"/>
+  </symbol>
+
+  <!-- Map pin -->
+  <symbol id="i-pin" viewBox="0 0 24 24">
+    <title>Map Pin</title>
+    <path d="M12,2 C9,2 6,4.5 6,8 C6,12 12,21 12,21 C12,21 18,12 18,8 C18,4.5 15,2 12,2 Z"/>
+    <circle cx="12" cy="8" r="2.5" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Clock face -->
+  <symbol id="i-clock" viewBox="0 0 24 24">
+    <title>Clock</title>
+    <circle cx="12" cy="12" r="9"/>
+    <!-- hour hand pointing to 10 -->
+    <line x1="12" y1="12" x2="8.5" y2="7.5"/>
+    <!-- minute hand pointing to 12 -->
+    <line x1="12" y1="12" x2="12" y2="5"/>
+  </symbol>
+
+  <!-- Bus front view -->
+  <symbol id="i-bus" viewBox="0 0 24 24">
+    <title>Bus</title>
+    <!-- body -->
+    <rect x="3" y="5" width="18" height="14" rx="2"/>
+    <!-- windshield -->
+    <rect x="5" y="7" width="14" height="5" rx="1"/>
+    <!-- left window -->
+    <rect x="5" y="7" width="5.5" height="5" rx="0.8"/>
+    <!-- center divider -->
+    <line x1="12" y1="7" x2="12" y2="12"/>
+    <!-- right window -->
+    <rect x="13.5" y="7" width="5.5" height="5" rx="0.8"/>
+    <!-- headlights -->
+    <rect x="5" y="15" width="4" height="2" rx="0.5" fill="currentColor" stroke="none"/>
+    <rect x="15" y="15" width="4" height="2" rx="0.5" fill="currentColor" stroke="none"/>
+    <!-- wheels -->
+    <circle cx="7" cy="20" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="17" cy="20" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="7" cy="20" r="0.8"/>
+    <circle cx="17" cy="20" r="0.8"/>
+  </symbol>
+
+  <!-- Boxy jeep/Sumo side view with roof rack -->
+  <symbol id="i-jeep" viewBox="0 0 24 24"><title>Shared jeep</title><path d="M3 17v-5l2.5-5h10l3.5 5h2v5"/><path d="M3 17h2M9 17h6M19 17h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M4 12h15M11 7v5"/><path d="M6 4.5h9M7.5 4.5V7M13.5 4.5V7"/></symbol>
+
+  <!-- SUV/MPV side view -->
+  <symbol id="i-car" viewBox="0 0 24 24">
+    <title>Car</title>
+    <!-- body silhouette -->
+    <path d="M2,15 L2,12 L6,9 L16,9 L20,12 L22,12 L22,17 L2,17 Z"/>
+    <!-- windows -->
+    <polyline points="6,9 7,11 15,11 16,9"/>
+    <!-- window divider -->
+    <line x1="11" y1="9.5" x2="11" y2="11"/>
+    <!-- wheels -->
+    <circle cx="6.5" cy="18" r="2.5" fill="currentColor" stroke="none"/>
+    <circle cx="17.5" cy="18" r="2.5" fill="currentColor" stroke="none"/>
+    <circle cx="6.5" cy="18" r="1"/>
+    <circle cx="17.5" cy="18" r="1"/>
+    <!-- headlight -->
+    <line x1="20" y1="13" x2="22" y2="13"/>
+    <!-- door lines -->
+    <line x1="11" y1="11" x2="11" y2="16"/>
+  </symbol>
+
+  <!-- Indian rupee sign ₹ drawn with strokes -->
+  <symbol id="i-rupee" viewBox="0 0 24 24">
+    <title>Rupee</title>
+    <!-- top horizontal bar -->
+    <line x1="6" y1="5" x2="18" y2="5"/>
+    <!-- second horizontal bar -->
+    <line x1="6" y1="9" x2="18" y2="9"/>
+    <!-- stem going down -->
+    <line x1="8" y1="9" x2="20" y2="21"/>
+    <!-- R-like curve from top: vertical stroke + curve on top -->
+    <path d="M8,5 L8,9 C8,11 10,12 14,12 C18,12 18,9 18,9"/>
+  </symbol>
+
+  <!-- Snowflake -->
+  <symbol id="i-snow" viewBox="0 0 24 24">
+    <title>Snowflake</title>
+    <!-- 6 arms -->
+    <line x1="12" y1="2" x2="12" y2="22"/>
+    <line x1="2" y1="12" x2="22" y2="12"/>
+    <line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/>
+    <line x1="19.1" y1="4.9" x2="4.9" y2="19.1"/>
+    <!-- branch ticks on each arm -->
+    <line x1="9" y1="5" x2="12" y2="8"/>
+    <line x1="15" y1="5" x2="12" y2="8"/>
+    <line x1="9" y1="19" x2="12" y2="16"/>
+    <line x1="15" y1="19" x2="12" y2="16"/>
+    <line x1="5" y1="9" x2="8" y2="12"/>
+    <line x1="5" y1="15" x2="8" y2="12"/>
+    <line x1="19" y1="9" x2="16" y2="12"/>
+    <line x1="19" y1="15" x2="16" y2="12"/>
+  </symbol>
+
+  <!-- String of 5 triangular prayer flags hanging from a curved line -->
+  <symbol id="i-flag" viewBox="0 0 24 24"><title>Prayer flags</title><path d="M2 5c6 4 14 4 20 0"/><rect x="3.6" y="6.4" width="3" height="4.5" rx=".5"/><rect x="8.3" y="7.7" width="3" height="4.5" rx=".5"/><rect x="12.7" y="7.7" width="3" height="4.5" rx=".5"/><rect x="17.4" y="6.4" width="3" height="4.5" rx=".5"/></symbol>
+
+  <!-- Circle with i (info) -->
+  <symbol id="i-info" viewBox="0 0 24 24">
+    <title>Info</title>
+    <circle cx="12" cy="12" r="9"/>
+    <line x1="12" y1="11" x2="12" y2="17"/>
+    <circle cx="12" cy="8" r="0.8" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Bunk bed: two stacked beds with a ladder -->
+  <symbol id="i-bed" viewBox="0 0 24 24">
+    <title>Bunk Bed</title>
+    <!-- vertical posts -->
+    <line x1="3" y1="3" x2="3" y2="21"/>
+    <line x1="21" y1="3" x2="21" y2="21"/>
+    <!-- top bunk platform -->
+    <rect x="3" y="5" width="18" height="2" rx="0.5"/>
+    <!-- top mattress -->
+    <rect x="4" y="5" width="16" height="2" rx="0.5"/>
+    <!-- top pillow -->
+    <rect x="5" y="5" width="4" height="2" rx="0.5"/>
+    <!-- bottom bunk platform -->
+    <rect x="3" y="13" width="18" height="2" rx="0.5"/>
+    <!-- bottom mattress / pillow -->
+    <rect x="5" y="13" width="4" height="2" rx="0.5"/>
+    <!-- ladder rungs on right side -->
+    <line x1="19" y1="8" x2="21" y2="8"/>
+    <line x1="19" y1="11" x2="21" y2="11"/>
+    <line x1="19" y1="14" x2="21" y2="14"/>
+    <!-- floor line -->
+    <line x1="3" y1="21" x2="21" y2="21"/>
+  </symbol>
+
+  <!-- Ticket with notch on each side and dashed tear line -->
+  <symbol id="i-ticket" viewBox="0 0 24 24">
+    <title>Ticket</title>
+    <!-- ticket outer body -->
+    <rect x="2" y="7" width="20" height="10" rx="1.5"/>
+    <!-- left notch (semicircle cut) -->
+    <path d="M2,11 C4,11 4,13 2,13" fill="currentColor" stroke="none"/>
+    <!-- right notch (semicircle cut) -->
+    <path d="M22,11 C20,11 20,13 22,13" fill="currentColor" stroke="none"/>
+    <!-- tear line: short dash segments instead of stroke-dasharray -->
+    <line x1="8" y1="7.5" x2="8" y2="9.5"/>
+    <line x1="8" y1="11" x2="8" y2="13"/>
+    <line x1="8" y1="14.5" x2="8" y2="16.5"/>
+    <!-- content on right side: two text lines -->
+    <line x1="11" y1="10" x2="20" y2="10"/>
+    <line x1="11" y1="13" x2="18" y2="13"/>
+  </symbol>
+
+</svg>

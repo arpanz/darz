@@ -4,481 +4,850 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Our Darjeeling trip, 20–25 December: the train, getting up the hill, where we're staying, the day-by-day plan, places to see and what to eat.">
+<meta name="theme-color" content="#f2f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1513" media="(prefers-color-scheme: dark)">
 <title>Darjeeling, December</title>
+<script>
+  // Apply a saved theme before first paint so the page never flashes the wrong one.
+  try { var t = localStorage.getItem('darz-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500&family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
-/* Layout: a hero with a drawn Himalayan ridge, a sticky section nav, then one calm column of sections. Cards only where something is a distinct choice or place. */
+/* See DESIGN.md. Light = dawn on Tiger Hill, dark = night on Chowrasta. */
 :root {
   color-scheme: light;
-  --bg: #f4f6f3;
-  --surface: #ffffff;
-  --fg: #1c2420;
-  --muted: #5d6a63;
-  --line: #dde3de;
-  --accent: #2f6b4f;        /* tea-garden green */
-  --accent-soft: #e3efe8;
-  --ridge-far: #c9d6d0;
-  --ridge-near: #9fb5aa;
-  --snow: #ffffff;
-  --sky: #e8eef0;
-  --good: #2f6b4f;
-  --warn: #9a6a12;
-  --warn-soft: #f7ecd6;
-  --bad: #a3402f;
-  --bad-soft: #f6e1dc;
+  --bg: #f2f6f3; --surface: #ffffff; --surface-2: #e9f0eb;
+  --fg: #15221b; --muted: #566960; --line: #d8e2db;
+  --tea: #2c6a49; --tea-soft: #dfede4;
+  --sun: #e07f3c; --sun-ink: #9c4e17; --sun-soft: #fbe6d6;
+  --warn: #9a6a12; --warn-soft: #f7ecd6; --bad: #a3402f; --bad-soft: #f6e1dc;
+  --sky-top: #d9e6ee; --sky-bottom: #f7ebdf;
+  --ridge-far: #c3d2d6; --ridge-mid: #9cb3ab; --ridge-near: #6c8d7d; --tea-row: #5b7d6c;
+  --snow: #ffffff; --mist: rgba(255, 255, 255, 0.42);
+  --flag-1: #3b6fb6; --flag-2: #f4f4ef; --flag-3: #c8453a; --flag-4: #3f8f5a; --flag-5: #e3b23c; --flag-string: #8a9a92;
+  --ticket: #fbf7ee;
+  --sun-op: 1; --moon-op: 0; --star-op: 0;
+  --bar: rgba(242, 246, 243, 0.82);
+
   --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body: "Source Sans 3", "Helvetica Neue", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --fast: 160ms; --base: 280ms; --slow: 700ms;
+  --top: calc(52px + env(safe-area-inset-top, 0px));
+  --tabbar: calc(64px + env(safe-area-inset-bottom, 0px));
+  interpolate-size: allow-keywords;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121714; --surface: #1a211d; --fg: #e6ece8; --muted: #9aa8a0; --line: #2c3631;
-    --accent: #7fc4a0; --accent-soft: #1f3329;
-    --ridge-far: #26312c; --ridge-near: #33443b; --snow: #dfe8e4; --sky: #161d1a;
-    --good: #7fc4a0; --warn: #e2b866; --warn-soft: #3a2f1a; --bad: #e8907e; --bad-soft: #3b2420;
+    --bg: #0e1513; --surface: #16201c; --surface-2: #1c2823;
+    --fg: #e3ece6; --muted: #91a399; --line: #26332d;
+    --tea: #84c8a1; --tea-soft: #1b3026;
+    --sun: #f2a766; --sun-ink: #f2a766; --sun-soft: #3a2817;
+    --warn: #e2b866; --warn-soft: #3a2f1a; --bad: #e8907e; --bad-soft: #3b2420;
+    --sky-top: #0a1020; --sky-bottom: #16222b;
+    --ridge-far: #2a3a48; --ridge-mid: #1e2c27; --ridge-near: #17241f; --tea-row: #24382e;
+    --snow: #cfdbe4; --mist: rgba(170, 195, 210, 0.07);
+    --flag-1: #335f9c; --flag-2: #cfd3cf; --flag-3: #a93b32; --flag-4: #367a4d; --flag-5: #c19833; --flag-string: #4a5a53;
+    --ticket: #1d2721;
+    --sun-op: 0; --moon-op: 1; --star-op: 1;
+    --bar: rgba(14, 21, 19, 0.82);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #121714; --surface: #1a211d; --fg: #e6ece8; --muted: #9aa8a0; --line: #2c3631;
-  --accent: #7fc4a0; --accent-soft: #1f3329;
-  --ridge-far: #26312c; --ridge-near: #33443b; --snow: #dfe8e4; --sky: #161d1a;
-  --good: #7fc4a0; --warn: #e2b866; --warn-soft: #3a2f1a; --bad: #e8907e; --bad-soft: #3b2420;
+  --bg: #0e1513; --surface: #16201c; --surface-2: #1c2823;
+  --fg: #e3ece6; --muted: #91a399; --line: #26332d;
+  --tea: #84c8a1; --tea-soft: #1b3026;
+  --sun: #f2a766; --sun-ink: #f2a766; --sun-soft: #3a2817;
+  --warn: #e2b866; --warn-soft: #3a2f1a; --bad: #e8907e; --bad-soft: #3b2420;
+  --sky-top: #0a1020; --sky-bottom: #16222b;
+  --ridge-far: #2a3a48; --ridge-mid: #1e2c27; --ridge-near: #17241f; --tea-row: #24382e;
+  --snow: #cfdbe4; --mist: rgba(170, 195, 210, 0.07);
+  --flag-1: #335f9c; --flag-2: #cfd3cf; --flag-3: #a93b32; --flag-4: #367a4d; --flag-5: #c19833; --flag-string: #4a5a53;
+  --ticket: #1d2721;
+  --sun-op: 0; --moon-op: 1; --star-op: 1;
+  --bar: rgba(14, 21, 19, 0.82);
   color-scheme: dark;
 }
+
+/* ---------- Base ---------- */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 64px; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 var(--body); }
-.wrap {
-  max-width: 780px; margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
-h2 { font-size: clamp(1.5rem, 4vw, 1.9rem); font-weight: 800; letter-spacing: -0.01em; }
-h3 { font-size: 1.12rem; font-weight: 600; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--top) + 12px); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 var(--body); padding-bottom: var(--tabbar); -webkit-tap-highlight-color: transparent; }
+.wrap { max-width: 780px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.12; }
+h2 { font-size: clamp(1.55rem, 5vw, 1.95rem); font-weight: 800; letter-spacing: -0.015em; }
+h3 { font-size: 1.1rem; font-weight: 600; }
 p { margin: 0; }
-a { color: var(--accent); }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+a { color: var(--tea); }
+:focus-visible { outline: 2px solid var(--tea); outline-offset: 2px; border-radius: 6px; }
 .muted { color: var(--muted); }
+.small { font-size: 0.88rem; }
 .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
-.eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
-
-/* Hero */
-.hero { background: var(--sky); position: relative; overflow: hidden; }
-.hero .wrap { padding-block: 48px 0; display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1; }
-.hero h1 { font-size: clamp(2.6rem, 9vw, 4.2rem); font-weight: 800; letter-spacing: -0.02em; }
-.hero p.lede { font-size: 1.1rem; max-width: 34em; color: var(--muted); }
-.dates { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-.chip { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 0.9rem; }
-.ridge { display: block; width: 100%; height: auto; margin-top: 8px; }
-.ridge .far { fill: var(--ridge-far); }
-.ridge .near { fill: var(--ridge-near); }
-.ridge .snow { fill: var(--snow); }
-.ridge .ground { fill: var(--bg); }
-
-/* Sticky nav */
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-nav.sections { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
-nav.sections .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: none; }
-nav.sections .wrap::-webkit-scrollbar { display: none; }
-nav.sections a { flex: none; text-decoration: none; color: var(--muted); font-weight: 600; font-size: 0.92rem; padding: 6px 12px; border-radius: 999px; }
-nav.sections a:hover { color: var(--fg); background: var(--surface); }
-nav.sections a.on { color: var(--accent); background: var(--accent-soft); }
-
-main .wrap { display: flex; flex-direction: column; gap: 64px; padding-block: 40px 72px; }
-section { display: flex; flex-direction: column; gap: 16px; }
-.sec-head { display: flex; flex-direction: column; gap: 6px; }
-.sub { display: flex; flex-direction: column; gap: 12px; }
-
-/* Placeholder marker */
-.tbd { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--warn); background: var(--warn-soft); border-radius: 999px; padding: 1px 8px; vertical-align: 2px; white-space: nowrap; }
-
-/* Key/value facts */
-.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.facts > div { background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.facts dt { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; }
-.facts dd { margin: 0; font-weight: 600; }
-.facts .wide { grid-column: 1 / -1; }
-@media (max-width: 480px) { .facts { grid-template-columns: 1fr; } }
-
-/* Tables */
-.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 520px; }
-th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; }
-tr:last-child td { border-bottom: 0; }
-tr.pick td { background: var(--accent-soft); }
-.pill { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
-.pill.good { background: var(--accent-soft); color: var(--good); }
+.mono { font-family: var(--mono); font-weight: 500; letter-spacing: -0.01em; }
+.label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.i { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.25em; }
+.tbd { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--sun-ink); background: var(--sun-soft); border-radius: 999px; padding: 1px 8px; vertical-align: 2px; white-space: nowrap; }
+.pill { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.good { background: var(--tea-soft); color: var(--tea); }
 .pill.warn { background: var(--warn-soft); color: var(--warn); }
 .pill.bad { background: var(--bad-soft); color: var(--bad); }
 
-/* Expandable option details */
-details.opt { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-details.opt[open] { padding-bottom: 14px; }
-details.opt summary { cursor: pointer; list-style: none; padding: 14px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; font-weight: 600; }
-details.opt summary::-webkit-details-marker { display: none; }
-details.opt summary::after { content: "+"; font-family: var(--display); font-weight: 800; color: var(--muted); margin-left: auto; }
-details.opt[open] summary::after { content: "−"; }
-details.opt > :not(summary) { margin: 0 16px; }
-details.opt ul { padding-left: 1.1em; margin-top: 0; margin-bottom: 0; display: flex; flex-direction: column; gap: 4px; }
-.opts { display: flex; flex-direction: column; gap: 10px; }
+/* ---------- Top bar ---------- */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bar); }
+.topbar { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 30; height: 52px; background: var(--bar); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; transition: border-color var(--base) var(--ease); }
+.topbar.scrolled { border-bottom-color: var(--line); }
+.topbar .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--fg); font-family: var(--display); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; }
+.brand .i { color: var(--tea); width: 22px; height: 22px; }
+.theme-btn { width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); display: grid; place-items: center; cursor: pointer; transition: transform var(--fast) var(--ease), background var(--fast); }
+.theme-btn:active { transform: scale(0.94); }
+.theme-btn .i { width: 20px; height: 20px; }
+.theme-btn .to-light { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-btn .to-light { display: block; } :root:not([data-theme="light"]) .theme-btn .to-dark { display: none; } }
+:root[data-theme="dark"] .theme-btn .to-light { display: block; }
+:root[data-theme="dark"] .theme-btn .to-dark { display: none; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 
-/* Timelines */
-ol.timeline { list-style: none; margin: 0; padding: 0; }
-ol.timeline li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
-ol.timeline li:last-child { border-bottom: 0; }
-ol.timeline time { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); }
+/* ---------- Hero ---------- */
+.hero { position: relative; background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)); padding-top: var(--top); overflow: hidden; }
+.flags { display: block; width: 100%; height: 64px; }
+.flags .string { fill: none; stroke: var(--flag-string); stroke-width: 1.5; }
+.flags rect { transform-box: fill-box; transform-origin: 50% 0; animation: sway 3.6s ease-in-out infinite alternate; }
+.flags rect:nth-of-type(5n+1) { fill: var(--flag-1); }
+.flags rect:nth-of-type(5n+2) { fill: var(--flag-2); }
+.flags rect:nth-of-type(5n+3) { fill: var(--flag-3); }
+.flags rect:nth-of-type(5n+4) { fill: var(--flag-4); }
+.flags rect:nth-of-type(5n+5) { fill: var(--flag-5); }
+.flags rect:nth-of-type(2n) { animation-duration: 4.4s; animation-delay: -1.2s; }
+.flags rect:nth-of-type(3n) { animation-delay: -2.1s; }
+@keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
 
-/* Itinerary days */
-.days { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--line); margin-left: 6px; }
-.day { position: relative; padding: 0 0 26px 22px; display: flex; flex-direction: column; gap: 6px; }
+.hero-text { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 12px; padding-block: 4px 0; }
+.eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--tea); }
+.hero h1 { font-size: clamp(2.6rem, 11vw, 4.4rem); font-weight: 800; letter-spacing: -0.03em; }
+.hero .lede { font-size: 1.08rem; max-width: 32em; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 0.9rem; font-weight: 600; }
+.chip .i { color: var(--tea); width: 16px; height: 16px; }
+
+.scene { display: block; width: 100%; height: clamp(190px, 42vw, 340px); margin-top: -8px; }
+.scene .sunbody { fill: var(--sun); opacity: var(--sun-op); transition: opacity var(--slow) var(--ease); }
+.scene .glow { fill: var(--sun); opacity: calc(var(--sun-op) * 0.18); transition: opacity var(--slow) var(--ease); }
+.scene .moon { fill: var(--snow); opacity: var(--moon-op); transition: opacity var(--slow) var(--ease); }
+.scene .stars circle { fill: var(--snow); opacity: var(--star-op); transition: opacity var(--slow) var(--ease); }
+.scene .far { fill: var(--ridge-far); }
+.scene .mid { fill: var(--ridge-mid); }
+.scene .near { fill: var(--ridge-near); }
+.scene .snow { fill: var(--snow); }
+.scene .rows { fill: none; stroke: var(--tea-row); stroke-width: 2; stroke-linecap: round; opacity: 0.7; }
+.scene .ground { fill: var(--bg); }
+.scene .mist { fill: var(--mist); }
+.scene .mist-a { animation: drift 38s ease-in-out infinite alternate; }
+.scene .mist-b { animation: drift 52s ease-in-out infinite alternate-reverse; }
+@keyframes drift { from { transform: translateX(-60px); } to { transform: translateX(60px); } }
+.scene .twinkle { animation: twinkle 3s ease-in-out infinite alternate; }
+@keyframes twinkle { from { opacity: calc(var(--star-op) * 0.3); } to { opacity: var(--star-op); } }
+
+/* Hero entrance */
+.scene .rise { animation: rise var(--slow) var(--ease) both; }
+.scene .far.rise { animation-delay: 80ms; }
+.scene .mid.rise, .scene .snow.rise { animation-delay: 80ms; }
+.scene .layer-mid { animation: rise var(--slow) var(--ease) 180ms both; }
+.scene .layer-near { animation: rise var(--slow) var(--ease) 280ms both; }
+.scene .sunrise { animation: sunrise 1.6s var(--ease) 200ms both; }
+@keyframes rise { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sunrise { from { transform: translateY(70px); } to { transform: none; } }
+.hero-text > * { animation: fadeup var(--slow) var(--ease) both; }
+.hero-text > :nth-child(2) { animation-delay: 60ms; }
+.hero-text > :nth-child(3) { animation-delay: 120ms; }
+.hero-text > :nth-child(4) { animation-delay: 180ms; }
+@keyframes fadeup { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- Tabs: bottom bar on phones, sticky top bar on wider screens ---------- */
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; background: var(--bar); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.tabs .wrap { position: relative; display: flex; height: 64px; padding-left: max(4px, env(safe-area-inset-left, 0px)); padding-right: max(4px, env(safe-area-inset-right, 0px)); }
+.tabs a { position: relative; z-index: 1; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: var(--muted); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.01em; transition: color var(--base) var(--ease), transform var(--fast) var(--ease); }
+.tabs a .i { width: 22px; height: 22px; }
+.tabs a:active { transform: scale(0.94); }
+.tabs a.on { color: var(--tea); }
+.tabs .indicator { position: absolute; top: 8px; height: 48px; left: 0; width: 0; border-radius: 14px; background: var(--tea-soft); transition: transform var(--base) var(--ease), width var(--base) var(--ease); pointer-events: none; }
+@media (min-width: 760px) {
+  body { padding-bottom: 0; }
+  html { scroll-padding-top: calc(var(--top) + 64px); }
+  .tabs { position: sticky; top: var(--top); bottom: auto; border-top: 0; border-bottom: 1px solid var(--line); padding-bottom: 0; }
+  .tabs .wrap { height: 56px; gap: 2px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .tabs a { flex: none; flex-direction: row; gap: 7px; padding: 0 12px; font-size: 0.92rem; font-weight: 600; letter-spacing: 0; }
+  .tabs a .i { width: 18px; height: 18px; }
+  .tabs .indicator { top: 10px; height: 36px; border-radius: 999px; }
+}
+
+/* ---------- Sections ---------- */
+main .wrap { display: flex; flex-direction: column; gap: 22px; padding-block: 36px 56px; }
+section { display: flex; flex-direction: column; gap: 16px; }
+.sec-head { display: flex; align-items: flex-start; gap: 14px; }
+.badge { width: 44px; height: 44px; border-radius: 14px; background: var(--tea-soft); color: var(--tea); display: grid; place-items: center; flex: none; }
+.badge .i { width: 24px; height: 24px; }
+.sec-head > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.divider { display: block; width: 120px; height: 18px; margin: 18px auto; color: var(--muted); opacity: 0.5; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.sub { display: flex; flex-direction: column; gap: 10px; }
+
+/* Cards */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 560px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card-head { display: flex; align-items: center; gap: 10px; }
+.card-head .icon { width: 36px; height: 36px; border-radius: 11px; background: var(--surface-2); color: var(--tea); display: grid; place-items: center; flex: none; }
+.card-head .icon .i { width: 20px; height: 20px; }
+.card .meta { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); margin-top: auto; padding-top: 4px; }
+.card .meta .i { width: 15px; height: 15px; }
+ul.list { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 5px; }
+.callout { display: flex; gap: 12px; align-items: flex-start; background: var(--tea-soft); border-radius: 14px; padding: 14px 16px; }
+.callout .i { color: var(--tea); width: 22px; height: 22px; margin-top: 1px; }
+.callout > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+/* Facts */
+.facts { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 0; }
+@media (min-width: 480px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .facts .wide { grid-column: 1 / -1; } }
+.facts > div { background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.facts dt { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 700; }
+.facts dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.copy { display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 0.82rem; font-weight: 700; color: var(--tea); background: var(--tea-soft); border: 0; border-radius: 999px; padding: 4px 10px; margin-left: 8px; cursor: pointer; vertical-align: 1px; transition: transform var(--fast) var(--ease); }
+.copy:active { transform: scale(0.95); }
+.copy .i { width: 14px; height: 14px; }
+
+/* ---------- Itinerary ---------- */
+.days { display: flex; flex-direction: column; position: relative; }
+.days::before { content: ""; position: absolute; left: 17px; top: 18px; bottom: 18px; width: 2px; background: repeating-linear-gradient(var(--line) 0 6px, transparent 6px 11px); }
+.day { position: relative; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; padding-bottom: 22px; }
 .day:last-child { padding-bottom: 0; }
-.day::before { content: ""; position: absolute; left: -8px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
-.day .when { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); }
-.day ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 3px; }
+.leaf { width: 36px; height: 36px; border-radius: 50%; background: var(--bg); border: 2px solid var(--tea); color: var(--tea); display: grid; place-items: center; position: relative; z-index: 1; }
+.leaf .i { width: 18px; height: 18px; }
+.day .body { display: flex; flex-direction: column; gap: 6px; padding-top: 6px; }
+.day .when { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--tea); }
+.day ul { margin: 0; padding-left: 1.05em; display: flex; flex-direction: column; gap: 3px; }
 
-/* Place and food cards */
-.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.card .meta { font-size: 0.85rem; color: var(--muted); }
+/* ---------- Train ticket ---------- */
+.ticket { --stub: 132px; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); background: var(--ticket); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.ticket::before, .ticket::after { content: ""; position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--bg); border: 1px solid var(--line); right: calc(var(--stub) - 10px); }
+.ticket::before { top: -11px; }
+.ticket::after { bottom: -11px; }
+.ticket .main { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.ticket .stub { border-left: 2px dashed var(--line); padding: 16px 14px; display: flex; flex-direction: column; gap: 10px; justify-content: center; text-align: center; color: var(--muted); }
+.ticket .stub .i { width: 34px; height: 34px; margin: 0 auto; color: var(--tea); }
+.route-line { display: flex; align-items: center; gap: 10px; }
+.route-line .code { font-family: var(--display); font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+.route-line .track { flex: 1; height: 2px; min-width: 20px; background: repeating-linear-gradient(90deg, var(--muted) 0 6px, transparent 6px 10px); position: relative; }
+.route-line .track .i { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -55%); width: 22px; height: 22px; color: var(--tea); background: var(--ticket); padding: 0 2px; box-sizing: content-box; }
+.route-line .place { display: flex; flex-direction: column; }
+.route-line .place.end { text-align: right; }
+.tfields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
+.tfields div { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.tfields dd { margin: 0; font-family: var(--mono); font-weight: 500; font-size: 0.95rem; overflow-wrap: anywhere; }
+.tfields dt { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: var(--muted); }
+.ticket.small .route-line .code { font-size: 1.35rem; }
+@media (max-width: 520px) {
+  .ticket { --stub: 76px; grid-template-columns: 1fr; }
+  .ticket::before, .ticket::after { right: auto; top: auto; bottom: calc(var(--stub) - 10px); }
+  .ticket::before { left: -11px; }
+  .ticket::after { right: -11px; left: auto; }
+  .ticket .stub { border-left: 0; border-top: 2px dashed var(--line); flex-direction: row; align-items: center; justify-content: space-between; text-align: left; min-height: var(--stub); }
+  .ticket .stub .i { margin: 0; width: 28px; height: 28px; }
+}
 
-ul.list { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
-.callout { background: var(--accent-soft); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
-.copy { font: inherit; font-size: 0.85rem; font-weight: 600; color: var(--accent); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; cursor: pointer; margin-left: 6px; }
+/* ---------- Route map ---------- */
+.route { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 10px 6px 4px; }
+.route svg { display: block; width: 100%; height: auto; }
+.route .r-hills { fill: var(--surface-2); }
+.route .r-path { fill: none; stroke: var(--tea); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 520; stroke-dashoffset: 0; }
+.js .route.pending:not(.in) .r-path { stroke-dashoffset: 520; }
+.route.in .r-path { transition: stroke-dashoffset 1.8s var(--ease) 150ms; }
+.route .r-loop { fill: none; stroke: var(--tea); stroke-width: 2; }
+.route .r-dot { fill: var(--surface); stroke: var(--tea); stroke-width: 2.5; }
+.route .r-end { fill: var(--sun); stroke: var(--surface); stroke-width: 2.5; }
+.route .r-name { fill: var(--fg); font: 700 11px var(--body); }
+.route .r-alt { fill: var(--muted); font: 500 9.5px var(--mono); }
+.route .r-snow { fill: var(--surface); stroke: var(--muted); stroke-width: 1; stroke-linejoin: round; opacity: 0.6; }
 
-footer { border-top: 1px solid var(--line); }
-footer .wrap { padding-block: 20px 32px; font-size: 0.88rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+/* ---------- Transport options ---------- */
+.opts { display: flex; flex-direction: column; gap: 10px; }
+details.opt { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; transition: border-color var(--base) var(--ease), box-shadow var(--base) var(--ease); }
+details.opt.pick { border-color: var(--tea); box-shadow: 0 0 0 1px var(--tea); }
+details.opt summary { list-style: none; cursor: pointer; padding: 14px 14px 14px 16px; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }
+details.opt summary::-webkit-details-marker { display: none; }
+details.opt .icon { grid-row: span 2; width: 36px; height: 36px; border-radius: 11px; background: var(--surface-2); color: var(--tea); display: grid; place-items: center; }
+details.opt .icon .i { width: 20px; height: 20px; }
+details.opt .name { font-weight: 700; min-width: 0; }
+details.opt .price { font-family: var(--display); font-weight: 800; font-size: 1.05rem; text-align: right; }
+details.opt .sub-line { grid-column: 2; font-size: 0.86rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+details.opt .chev { grid-column: 3; grid-row: 2; justify-self: end; color: var(--muted); transition: transform var(--base) var(--ease); }
+details.opt .chev .i { width: 18px; height: 18px; }
+details.opt[open] .chev { transform: rotate(180deg); }
+details.opt::details-content { block-size: 0; overflow: hidden; transition: block-size var(--base) var(--ease), content-visibility var(--base) allow-discrete; }
+details.opt[open]::details-content { block-size: auto; }
+details.opt .more { padding: 0 16px 16px 64px; }
+details.opt .more ul { margin: 0; padding-left: 1.05em; display: flex; flex-direction: column; gap: 5px; }
+@media (max-width: 420px) { details.opt .more { padding-left: 16px; } }
+
+ol.timeline { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+ol.timeline li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 12px; padding: 11px 16px; border-bottom: 1px dashed var(--line); }
+ol.timeline li:last-child { border-bottom: 0; }
+ol.timeline time { font-family: var(--mono); font-weight: 500; color: var(--tea); }
+
+/* ---------- Packing checklist ---------- */
+.checks { display: flex; flex-direction: column; gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.check { display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 52px; border-bottom: 1px solid var(--line); cursor: pointer; transition: background var(--fast); }
+.check:last-child { border-bottom: 0; }
+.check:hover { background: var(--surface-2); }
+.check input { position: absolute; opacity: 0; pointer-events: none; }
+.check .box { width: 24px; height: 24px; border-radius: 8px; border: 2px solid var(--line); display: grid; place-items: center; flex: none; color: var(--surface); transition: background var(--fast) var(--ease), border-color var(--fast) var(--ease), transform var(--fast) var(--ease); }
+.check .box .i { width: 16px; height: 16px; stroke-width: 2.5; opacity: 0; transform: scale(0.5); transition: opacity var(--fast), transform var(--base) var(--ease); }
+.check input:checked + .box { background: var(--tea); border-color: var(--tea); }
+.check input:checked + .box .i { opacity: 1; transform: none; }
+.check input:focus-visible + .box { outline: 2px solid var(--tea); outline-offset: 2px; }
+.check .what { display: flex; align-items: center; gap: 10px; min-width: 0; transition: opacity var(--base); }
+.check .what .i { color: var(--muted); }
+.check input:checked ~ .what { opacity: 0.55; text-decoration: line-through; text-decoration-color: var(--muted); }
+.check-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+
+/* ---------- Footer ---------- */
+footer { position: relative; margin-top: 8px; }
+footer svg { display: block; width: 100%; height: 70px; }
+footer .f-far { fill: var(--ridge-far); }
+footer .f-near { fill: var(--ridge-mid); }
+footer .base { background: var(--ridge-mid); color: var(--fg); }
+footer .base .wrap { padding-block: 4px 28px; display: flex; flex-direction: column; gap: 4px; font-size: 0.88rem; }
+footer .base .muted { color: var(--fg); opacity: 0.75; }
+
+/* ---------- Scroll reveal (content is visible without JS) ---------- */
+.js .reveal.pending { opacity: 0; transform: translateY(14px); }
+.js .reveal.pending.in { opacity: 1; transform: none; transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .reveal.pending { opacity: 1; transform: none; }
+  .js .route.pending:not(.in) .r-path { stroke-dashoffset: 0; }
+}
 </style>
 </head>
 <body>
 
-<header class="hero">
+<!-- Illustrations used more than once -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ridge-mini" viewBox="0 0 120 18"><path d="M2 16 L22 9 L32 12 L48 4 L56 8 L62 2 L70 7 L84 6 L96 11 L118 8"/></symbol>
+</svg>
+
+<header class="topbar" id="top">
   <div class="wrap">
+    <a class="brand" href="#plan" aria-label="Darz, back to the plan"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-flag"/></svg>darz</a>
+    <button class="theme-btn" id="theme" type="button" aria-label="Switch light or dark theme">
+      <svg class="i to-dark" aria-hidden="true"><use href="assets/icons.svg#i-moon"/></svg>
+      <svg class="i to-light" aria-hidden="true"><use href="assets/icons.svg#i-sun"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero" aria-label="Trip overview">
+  <svg class="flags" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+    <path class="string" d="M0 18 Q600 90 1200 18"/>
+    <rect x="36" y="23" width="26" height="30" rx="1"/><rect x="86" y="29" width="26" height="30" rx="1"/>
+    <rect x="136" y="33.5" width="26" height="30" rx="1"/><rect x="186" y="38" width="26" height="30" rx="1"/>
+    <rect x="236" y="41.5" width="26" height="30" rx="1"/><rect x="286" y="45" width="26" height="30" rx="1"/>
+    <rect x="336" y="47.5" width="26" height="30" rx="1"/><rect x="386" y="50" width="26" height="30" rx="1"/>
+    <rect x="436" y="51.5" width="26" height="30" rx="1"/><rect x="486" y="53" width="26" height="30" rx="1"/>
+    <rect x="536" y="53.5" width="26" height="30" rx="1"/><rect x="586" y="54" width="26" height="30" rx="1"/>
+    <rect x="636" y="53.5" width="26" height="30" rx="1"/><rect x="686" y="53" width="26" height="30" rx="1"/>
+    <rect x="736" y="51.5" width="26" height="30" rx="1"/><rect x="786" y="50" width="26" height="30" rx="1"/>
+    <rect x="836" y="47.5" width="26" height="30" rx="1"/><rect x="886" y="45" width="26" height="30" rx="1"/>
+    <rect x="936" y="41.5" width="26" height="30" rx="1"/><rect x="986" y="38" width="26" height="30" rx="1"/>
+    <rect x="1036" y="33.5" width="26" height="30" rx="1"/><rect x="1086" y="29" width="26" height="30" rx="1"/>
+    <rect x="1136" y="23" width="26" height="30" rx="1"/>
+  </svg>
+
+  <div class="wrap hero-text">
     <span class="eyebrow">6 friends · Bhubaneswar → Darjeeling</span>
     <h1>Darjeeling, December</h1>
     <p class="lede">Everything for the trip in one place: the train, getting up the hill, where we're staying, the plan for each day, what to see and what to eat.</p>
-    <div class="dates">
-      <span class="chip num">20–25 Dec 2026</span>
-      <span class="chip">Stay: Bubble Beds</span>
-      <span class="chip">Expect 2–10°C</span>
+    <div class="chips">
+      <span class="chip num"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>20–25 Dec 2026</span>
+      <span class="chip"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stay"/></svg>Bubble Beds</span>
+      <span class="chip"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-snow"/></svg>2–10°C</span>
     </div>
   </div>
-  <svg class="ridge" viewBox="0 0 1200 170" preserveAspectRatio="none" aria-hidden="true">
-    <path class="far" d="M0 150 L120 110 L210 128 L330 70 L420 96 L520 34 L585 62 L640 22 L700 58 L790 44 L880 92 L980 68 L1080 104 L1200 86 L1200 170 L0 170 Z"/>
-    <path class="snow" d="M520 34 L548 46 L560 40 L585 62 L600 46 L640 22 L668 40 L700 58 L676 52 L652 44 L628 52 L604 60 L586 72 L566 56 L548 58 Z"/>
-    <path class="near" d="M0 160 L90 132 L190 146 L300 118 L410 140 L520 120 L640 144 L760 116 L880 138 L1000 124 L1110 142 L1200 128 L1200 170 L0 170 Z"/>
-    <path class="ground" d="M0 166 L1200 158 L1200 170 L0 170 Z"/>
-  </svg>
-</header>
 
-<nav class="sections" aria-label="Sections">
-  <div class="wrap">
-    <a href="#plan">Plan</a>
-    <a href="#train">Train</a>
-    <a href="#uphill">NJP → Darjeeling</a>
-    <a href="#stay">Stay</a>
-    <a href="#places">Places</a>
-    <a href="#food">Food</a>
-    <a href="#pack">Pack</a>
+  <svg class="scene" viewBox="0 0 1200 380" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <g class="stars">
+      <circle class="twinkle" cx="140" cy="60" r="1.8"/><circle cx="260" cy="110" r="1.2"/><circle class="twinkle" cx="380" cy="40" r="1.5"/>
+      <circle cx="470" cy="120" r="1.1"/><circle class="twinkle" cx="1010" cy="70" r="1.7"/><circle cx="1100" cy="130" r="1.2"/>
+      <circle cx="930" cy="30" r="1.3"/><circle class="twinkle" cx="700" cy="60" r="1.2"/><circle cx="60" cy="140" r="1.3"/>
+    </g>
+    <g class="sunrise">
+      <circle class="glow" cx="860" cy="168" r="72"/>
+      <circle class="sunbody" cx="860" cy="168" r="36"/>
+    </g>
+    <path class="moon" d="M884 62 a30 30 0 1 0 30 44 a24 24 0 1 1 -30 -44 z"/>
+    <g class="rise">
+      <path class="far" d="M0 300 L90 250 L170 268 L260 206 L330 228 L410 170 L470 196 L540 120 L585 150 L622 96 L660 132 L700 110 L760 160 L840 150 L910 198 L1000 176 L1090 220 L1200 196 L1200 380 L0 380 Z"/>
+      <path class="snow" d="M540 120 L560 134 L572 128 L585 150 L598 130 L622 96 L640 116 L654 112 L660 132 L676 120 L700 110 L722 128 L706 130 L690 126 L672 138 L656 134 L640 128 L624 136 L606 142 L592 156 L578 140 L562 144 Z"/>
+    </g>
+    <g class="layer-mid">
+      <path class="mid" d="M0 320 L110 282 L210 300 L320 258 L430 290 L530 262 L640 296 L760 256 L870 286 L980 262 L1090 290 L1200 270 L1200 380 L0 380 Z"/>
+    </g>
+    <ellipse class="mist mist-a" cx="380" cy="300" rx="320" ry="26"/>
+    <ellipse class="mist mist-b" cx="900" cy="292" rx="280" ry="22"/>
+    <g class="layer-near">
+      <path class="near" d="M0 346 C120 318 220 316 340 334 C460 352 560 330 680 314 C800 298 900 316 1020 330 C1100 338 1160 330 1200 322 L1200 380 L0 380 Z"/>
+      <path class="rows" d="M60 356 C160 336 260 336 360 350 M110 368 C210 350 300 352 400 362 M720 330 C820 316 920 326 1010 340 M760 348 C860 336 950 344 1050 356 M820 366 C900 356 980 362 1070 372"/>
+      <path class="ground" d="M0 372 C300 364 900 364 1200 370 L1200 380 L0 380 Z"/>
+    </g>
+  </svg>
+</section>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap" id="tabs">
+    <span class="indicator" aria-hidden="true"></span>
+    <a href="#plan"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg><span>Plan</span></a>
+    <a href="#train"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg><span>Train</span></a>
+    <a href="#uphill"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-road"/></svg><span>Uphill</span></a>
+    <a href="#stay"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stay"/></svg><span>Stay</span></a>
+    <a href="#places"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-places"/></svg><span>Places</span></a>
+    <a href="#food"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-food"/></svg><span>Food</span></a>
+    <a href="#pack"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pack"/></svg><span>Pack</span></a>
   </div>
 </nav>
 
 <main>
   <div class="wrap">
 
-    <!-- Day-by-day plan -->
+    <!-- ===== Plan ===== -->
     <section id="plan">
       <div class="sec-head">
-        <span class="eyebrow">Day by day</span>
-        <h2>The plan</h2>
-        <p class="muted">A rough draft. We'll swap things around once train times and bookings are final.</p>
+        <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg></span>
+        <div>
+          <span class="label">Day by day</span>
+          <h2>The plan</h2>
+          <p class="muted">A rough draft. We'll swap things around once train times and bookings are final.</p>
+        </div>
       </div>
       <div class="days">
-        <div class="day">
-          <span class="when num">Sun 20 Dec</span>
-          <h3>Leave Bhubaneswar</h3>
-          <ul>
-            <li>Board the train to NJP. <span class="tbd">Train &amp; time to fill</span></li>
-            <li>Overnight on the train.</li>
-          </ul>
+        <div class="day reveal">
+          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></span>
+          <div class="body">
+            <span class="when num">Sun 20 Dec</span>
+            <h3>Leave Bhubaneswar</h3>
+            <ul>
+              <li>Board the train to NJP. <span class="tbd">Train &amp; time to fill</span></li>
+              <li>Overnight on the train.</li>
+            </ul>
+          </div>
         </div>
-        <div class="day">
-          <span class="when num">Mon 21 Dec</span>
-          <h3>Up the hill</h3>
-          <ul>
-            <li>Reach NJP around 6 AM and take the 7:00 or 8:00 AM bus up from Siliguri.</li>
-            <li>Leave bags at Bubble Beds and check in at 1 PM.</li>
-            <li>Evening on the Mall and at Chowrasta. Take it easy on day one.</li>
-          </ul>
+        <div class="day reveal">
+          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-road"/></svg></span>
+          <div class="body">
+            <span class="when num">Mon 21 Dec</span>
+            <h3>Up the hill</h3>
+            <ul>
+              <li>Reach NJP around 6 AM and take the 7:00 or 8:00 AM bus up from Siliguri.</li>
+              <li>Leave bags at Bubble Beds and check in at 1 PM.</li>
+              <li>Evening on the Mall and at Chowrasta. Take it easy on day one.</li>
+            </ul>
+          </div>
         </div>
-        <div class="day">
-          <span class="when num">Tue 22 Dec</span>
-          <h3>Tiger Hill sunrise and the town</h3>
-          <ul>
-            <li>Leave around 4 AM for Tiger Hill to see the sunrise on Kanchenjunga.</li>
-            <li>Ghoom Monastery and Batasia Loop on the way back.</li>
-            <li>Zoo and the Himalayan Mountaineering Institute, right next to the hostel.</li>
-          </ul>
+        <div class="day reveal">
+          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-sunrise"/></svg></span>
+          <div class="body">
+            <span class="when num">Tue 22 Dec</span>
+            <h3>Tiger Hill sunrise and the town</h3>
+            <ul>
+              <li>Leave around 4 AM for Tiger Hill to see the sunrise on Kanchenjunga.</li>
+              <li>Ghoom Monastery and Batasia Loop on the way back.</li>
+              <li>Zoo and the Himalayan Mountaineering Institute, right next to the hostel.</li>
+            </ul>
+          </div>
         </div>
-        <div class="day">
-          <span class="when num">Wed 23 Dec</span>
-          <h3>Day trip</h3>
-          <ul>
-            <li>Lamahatta, Takdah and Tinchuley: pine forest, tea gardens, valley views.</li>
-            <li>Or Mirik Lake instead. <span class="tbd">Pick one</span></li>
-          </ul>
+        <div class="day reveal">
+          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pine"/></svg></span>
+          <div class="body">
+            <span class="when num">Wed 23 Dec</span>
+            <h3>Day trip</h3>
+            <ul>
+              <li>Lamahatta, Takdah and Tinchuley: pine forest, tea gardens, valley views.</li>
+              <li>Or Mirik Lake instead. <span class="tbd">Pick one</span></li>
+            </ul>
+          </div>
         </div>
-        <div class="day">
-          <span class="when num">Thu 24 Dec</span>
-          <h3>Tea, ropeway, Christmas Eve</h3>
-          <ul>
-            <li>Happy Valley Tea Estate in the morning.</li>
-            <li>Ropeway ride and the Peace Pagoda.</li>
-            <li>Christmas Eve dinner in town.</li>
-          </ul>
+        <div class="day reveal">
+          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-tea"/></svg></span>
+          <div class="body">
+            <span class="when num">Thu 24 Dec</span>
+            <h3>Tea, ropeway, Christmas Eve</h3>
+            <ul>
+              <li>Happy Valley Tea Estate in the morning.</li>
+              <li>Ropeway ride and the Peace Pagoda.</li>
+              <li>Christmas Eve dinner in town.</li>
+            </ul>
+          </div>
         </div>
-        <div class="day">
-          <span class="when num">Fri 25 Dec</span>
-          <h3>Head home</h3>
-          <ul>
-            <li>Check out by 11 AM, then down to NJP.</li>
-            <li>Train back to Bhubaneswar. <span class="tbd">Train &amp; time to fill</span></li>
-          </ul>
+        <div class="day reveal">
+          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pack"/></svg></span>
+          <div class="body">
+            <span class="when num">Fri 25 Dec</span>
+            <h3>Head home</h3>
+            <ul>
+              <li>Check out by 11 AM, then down to NJP.</li>
+              <li>Train back to Bhubaneswar. <span class="tbd">Train &amp; time to fill</span></li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Train -->
+    <svg class="divider" aria-hidden="true"><use href="#ridge-mini"/></svg>
+
+    <!-- ===== Train ===== -->
     <section id="train">
       <div class="sec-head">
-        <span class="eyebrow">20 Dec · Bhubaneswar → New Jalpaiguri</span>
-        <h2>The train</h2>
+        <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></span>
+        <div>
+          <span class="label">20 Dec · Overnight</span>
+          <h2>The train</h2>
+        </div>
       </div>
-      <dl class="facts">
-        <div><dt>Train</dt><dd>Name and number <span class="tbd">To fill</span></dd></div>
-        <div><dt>PNR</dt><dd><span class="tbd">To fill</span></dd></div>
-        <div><dt>Leaves BBS</dt><dd>20 Dec, time <span class="tbd">To fill</span></dd></div>
-        <div><dt>Reaches NJP</dt><dd>21 Dec, about 6 AM <span class="tbd">Confirm</span></dd></div>
-        <div><dt>Class and coach</dt><dd><span class="tbd">To fill</span></dd></div>
-        <div><dt>Berths</dt><dd><span class="tbd">To fill</span></dd></div>
-        <div class="wide"><dt>Return</dt><dd>25 Dec, NJP → Bhubaneswar <span class="tbd">Train, time and PNR to fill</span></dd></div>
-      </dl>
-      <ul class="list muted">
-        <li>Carry a printed or offline copy of the ticket, plus the ID used to book it.</li>
-        <li>Pack a warm layer in your day bag. You'll step off at NJP straight into a cold morning.</li>
-      </ul>
+
+      <article class="ticket reveal" aria-label="Outbound train ticket">
+        <div class="main">
+          <div class="route-line">
+            <div class="place"><span class="code">BBS</span><span class="small muted">Bhubaneswar</span></div>
+            <div class="track"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></div>
+            <div class="place end"><span class="code">NJP</span><span class="small muted">New Jalpaiguri</span></div>
+          </div>
+          <dl class="tfields">
+            <div><dt>Train</dt><dd><span class="tbd">To fill</span></dd></div>
+            <div><dt>Class / coach</dt><dd><span class="tbd">To fill</span></dd></div>
+            <div><dt>Leaves</dt><dd>Sun 20 Dec · <span class="tbd">Time</span></dd></div>
+            <div><dt>Arrives</dt><dd>Mon 21 Dec · ~06:00</dd></div>
+          </dl>
+        </div>
+        <div class="stub">
+          <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-ticket"/></svg>
+          <div><div class="label">PNR</div><div class="mono"><span class="tbd">To fill</span></div></div>
+          <div><div class="label">Berths</div><div class="mono"><span class="tbd">To fill</span></div></div>
+        </div>
+      </article>
+
+      <article class="ticket small reveal" aria-label="Return train ticket">
+        <div class="main">
+          <div class="route-line">
+            <div class="place"><span class="code">NJP</span><span class="small muted">Fri 25 Dec</span></div>
+            <div class="track"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></div>
+            <div class="place end"><span class="code">BBS</span><span class="small muted">Return</span></div>
+          </div>
+          <dl class="tfields">
+            <div><dt>Train</dt><dd><span class="tbd">To fill</span></dd></div>
+            <div><dt>Leaves</dt><dd><span class="tbd">Time</span></dd></div>
+          </dl>
+        </div>
+        <div class="stub">
+          <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-ticket"/></svg>
+          <div><div class="label">PNR</div><div class="mono"><span class="tbd">To fill</span></div></div>
+        </div>
+      </article>
+
+      <div class="callout reveal">
+        <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg>
+        <div>
+          <strong>Before boarding</strong>
+          <span>Keep an offline copy of the ticket and the ID used to book it. Pack a warm layer in your day bag: NJP at 6 AM is cold.</span>
+        </div>
+      </div>
     </section>
 
-    <!-- NJP to Darjeeling -->
+    <svg class="divider" aria-hidden="true"><use href="#ridge-mini"/></svg>
+
+    <!-- ===== Uphill ===== -->
     <section id="uphill">
       <div class="sec-head">
-        <span class="eyebrow">21 Dec · about 65–75 km uphill</span>
-        <h2>NJP → Darjeeling</h2>
-        <p class="muted">Every way up if we land at NJP around 6 AM, with the cost for all six of us. Our budget is ₹2,000–2,500 in total.</p>
+        <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-road"/></svg></span>
+        <div>
+          <span class="label">21 Dec · about 70 km, 2,000 m up</span>
+          <h2>NJP → Darjeeling</h2>
+          <p class="muted">Every way up if we land at NJP around 6 AM. Our budget is ₹2,000–2,500 for all six.</p>
+        </div>
       </div>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Option</th><th>Total for 6</th><th>Per person</th><th>Time</th><th>Fits budget?</th></tr>
-          </thead>
-          <tbody>
-            <tr class="pick"><td><strong>NBSTC bus</strong> (via Siliguri)</td><td class="num">₹1,050–1,700</td><td class="num">₹175–285</td><td class="num">about 4 h total</td><td><span class="pill good">Yes, our pick</span></td></tr>
-            <tr><td><strong>Shared jeep</strong></td><td class="num">₹2,000–2,900</td><td class="num">₹335–480</td><td class="num">3.5–5 h</td><td><span class="pill warn">Just about</span></td></tr>
-            <tr><td><strong>Reserved Sumo / Bolero</strong></td><td class="num">₹2,800–3,500</td><td class="num">₹470–585</td><td class="num">3.5–4.5 h</td><td><span class="pill bad">Over</span></td></tr>
-            <tr><td><strong>Prepaid Innova</strong></td><td class="num">₹4,000–5,000</td><td class="num">₹670–835</td><td class="num">3.5–4.5 h</td><td><span class="pill bad">Over</span></td></tr>
-            <tr><td><strong>Hostel pickup</strong></td><td class="num">Ask them</td><td class="num">–</td><td class="num">3.5–4.5 h</td><td><span class="pill warn">Ask</span></td></tr>
-            <tr><td><strong>Toy train</strong></td><td class="num">–</td><td class="num">–</td><td class="num">about 7.5 h</td><td><span class="pill bad">Not practical</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="muted" style="font-size:0.88rem">Totals include getting to the hostel door. Tap an option below for the details.</p>
+      <figure class="route reveal" style="margin:0">
+        <svg viewBox="0 0 360 230" role="img" aria-label="Route map: NJP at 114 metres, through Siliguri, up hairpin bends past Kurseong at 1,458 metres, over Ghum at 2,258 metres, down to Darjeeling at 2,042 metres.">
+          <path class="r-hills" d="M0 230 L0 150 L60 170 L120 130 L170 150 L220 80 L262 104 L300 44 L330 70 L360 52 L360 230 Z"/>
+          <path class="r-snow" d="M300 44 L312 58 L306 60 L298 54 L290 60 Z"/>
+          <path class="r-path" d="M42 206 L92 194 L126 186 C146 182 156 176 146 170 C136 164 146 156 166 156 C186 156 192 148 178 142 C164 136 172 128 192 126 L208 112 C220 102 236 104 234 92 C232 82 246 78 258 76 L276 72 C292 66 300 62 312 70 L326 80"/>
+          <circle class="r-loop" cx="276" cy="72" r="9"/>
+          <circle class="r-dot" cx="42" cy="206" r="5"/>
+          <circle class="r-dot" cx="92" cy="194" r="4"/>
+          <circle class="r-dot" cx="208" cy="112" r="4"/>
+          <circle class="r-dot" cx="276" cy="72" r="4"/>
+          <circle class="r-end" cx="326" cy="80" r="7"/>
+          <text class="r-name" x="30" y="224">NJP</text><text class="r-alt" x="58" y="224">114 m</text>
+          <text class="r-name" x="78" y="182">Siliguri</text>
+          <text class="r-name" x="218" y="126">Kurseong</text><text class="r-alt" x="218" y="138">1,458 m</text>
+          <text class="r-name" x="262" y="48" text-anchor="end">Ghum</text><text class="r-alt" x="262" y="59" text-anchor="end">2,258 m</text>
+          <text class="r-name" x="352" y="102" text-anchor="end">Darjeeling</text><text class="r-alt" x="352" y="114" text-anchor="end">2,042 m</text>
+        </svg>
+      </figure>
+      <p class="muted small">The road climbs almost 2,000 m in hairpin bends. Ghum, just before Darjeeling, is the highest point of the ride.</p>
 
       <div class="opts">
-        <details class="opt" open>
-          <summary><span>Government bus (NBSTC) via Siliguri <span class="pill good">Our pick</span></span><span class="num">₹1,050–1,700</span></summary>
-          <ul>
-            <li>The bus leaves from <strong>Tenzing Norgay Central Bus Stand in Siliguri</strong>, not NJP. Take a toto from the station first (about 25 min, ₹200–500 for 6, maybe two totos).</li>
-            <li><strong>7:00 AM</strong> and <strong>8:00 AM</strong> buses, arriving about 10:00 and 11:00. Non-AC seater via Rohini.</li>
-            <li><span class="num">₹105</span> a seat, checked on redBus and MakeMyTrip in Oct 2026. Only 4–5 seats per bus showed online, so book all 6 as soon as December opens.</li>
-            <li>It stops at Chowk Bazaar. Then 1–2 taxis to the hostel, about ₹200–500.</li>
-          </ul>
+        <details class="opt pick reveal" open>
+          <summary>
+            <span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-bus"/></svg></span>
+            <span class="name">Government bus via Siliguri</span>
+            <span class="price num">₹1,050–1,700</span>
+            <span class="sub-line"><span class="pill good">Our pick</span><span class="num">₹175–285 each</span><span>about 4 h</span></span>
+            <span class="chev"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-chevron"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul>
+              <li>The bus leaves from <strong>Tenzing Norgay Central Bus Stand in Siliguri</strong>, not NJP. Take a toto from the station first: about 25 min and ₹200–500 for 6, maybe two totos.</li>
+              <li><strong>7:00 AM</strong> and <strong>8:00 AM</strong> buses, arriving about 10:00 and 11:00. Non-AC seater via Rohini.</li>
+              <li><span class="num">₹105</span> a seat, checked on redBus and MakeMyTrip in Oct 2026. Only 4–5 seats per bus showed online, so book all 6 as soon as December opens.</li>
+              <li>It stops at Chowk Bazaar. Then 1–2 taxis to the hostel, about ₹200–500.</li>
+            </ul>
+          </div>
         </details>
-        <details class="opt">
-          <summary><span>Shared jeep from NJP</span><span class="num">₹2,000–2,900</span></summary>
-          <ul>
-            <li>Jeeps wait at the main taxi stand outside the station. Ask for "Darjeeling shared". The prepaid booth only sells whole cars.</li>
-            <li>About ₹300–400 a seat, up to ₹500 in peak December. Our limit is about <strong>₹330 a seat</strong>. Agree the fare before bags go on the roof.</li>
-            <li>It leaves when full. Buying a 7th seat gives more room and gets us moving sooner.</li>
-            <li>Few jeeps run at 6 AM, so we may wait until about 7–7:30. Drops at the motor stand, not the hostel.</li>
-          </ul>
+        <details class="opt reveal">
+          <summary>
+            <span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-jeep"/></svg></span>
+            <span class="name">Shared jeep from NJP</span>
+            <span class="price num">₹2,000–2,900</span>
+            <span class="sub-line"><span class="pill warn">Just about</span><span class="num">₹335–480 each</span><span>3.5–5 h</span></span>
+            <span class="chev"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-chevron"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul>
+              <li>Jeeps wait at the main taxi stand outside the station. Ask for "Darjeeling shared". The prepaid booth only sells whole cars.</li>
+              <li>About ₹300–400 a seat, up to ₹500 in peak December. Our limit is about <strong>₹330 a seat</strong>. Agree the fare before bags go on the roof.</li>
+              <li>It leaves when full. Buying a 7th seat gives more room and gets us moving sooner.</li>
+              <li>Few jeeps run at 6 AM, so we may wait until about 7–7:30. Drops at the motor stand, not the hostel.</li>
+            </ul>
+          </div>
         </details>
-        <details class="opt">
-          <summary><span>Reserved Sumo or Bolero</span><span class="num">₹2,800–3,500</span></summary>
-          <ul>
-            <li>A whole 8–10 seater, door to door, leaving right away. The prepaid booth charges about ₹3,500. Drivers outside sometimes go lower.</li>
-            <li>Tight with big bags.</li>
-          </ul>
+        <details class="opt reveal">
+          <summary>
+            <span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-car"/></svg></span>
+            <span class="name">Reserved Sumo or Bolero</span>
+            <span class="price num">₹2,800–3,500</span>
+            <span class="sub-line"><span class="pill bad">Over</span><span class="num">₹470–585 each</span><span>3.5–4.5 h</span></span>
+            <span class="chev"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-chevron"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul>
+              <li>A whole 8–10 seater, door to door, leaving right away. The prepaid booth charges about ₹3,500. Drivers outside sometimes go lower.</li>
+              <li>Tight with big bags.</li>
+            </ul>
+          </div>
         </details>
-        <details class="opt">
-          <summary><span>Prepaid Innova</span><span class="num">₹4,000–5,000</span></summary>
-          <ul>
-            <li>The comfortable option, booked at the prepaid booth opposite the station exit. Keep the slip and check it says "Lebong Cart Road, below Zoo".</li>
-          </ul>
+        <details class="opt reveal">
+          <summary>
+            <span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-car"/></svg></span>
+            <span class="name">Prepaid Innova</span>
+            <span class="price num">₹4,000–5,000</span>
+            <span class="sub-line"><span class="pill bad">Over</span><span class="num">₹670–835 each</span><span>3.5–4.5 h</span></span>
+            <span class="chev"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-chevron"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul>
+              <li>The comfortable option, booked at the prepaid booth opposite the station exit. Keep the slip and check it says "Lebong Cart Road, below Zoo".</li>
+            </ul>
+          </div>
         </details>
-        <details class="opt">
-          <summary><span>Pickup arranged by Bubble Beds</span><span>Ask them</span></summary>
-          <ul>
-            <li>Their tour package includes NJP pickup. If it's close to the Sumo fare, a driver waits for us at 6 AM.</li>
-          </ul>
+        <details class="opt reveal">
+          <summary>
+            <span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stay"/></svg></span>
+            <span class="name">Pickup by Bubble Beds</span>
+            <span class="price">Ask</span>
+            <span class="sub-line"><span class="pill warn">Ask them</span><span>3.5–4.5 h</span></span>
+            <span class="chev"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-chevron"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul>
+              <li>Their tour package includes NJP pickup. If it's close to the Sumo fare, a driver waits for us at 6 AM.</li>
+            </ul>
+          </div>
         </details>
-        <details class="opt">
-          <summary><span>Toy train <span class="pill bad">Skip for arrival</span></span><span>–</span></summary>
-          <ul>
-            <li>Leaves NJP at 10:00 AM and takes about 7.5 hours. Do the short Darjeeling–Ghum joyride (about ₹800) during the trip instead.</li>
-          </ul>
+        <details class="opt reveal">
+          <summary>
+            <span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></span>
+            <span class="name">Toy train</span>
+            <span class="price">–</span>
+            <span class="sub-line"><span class="pill bad">Not for arrival</span><span>about 7.5 h</span></span>
+            <span class="chev"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-chevron"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul>
+              <li>Leaves NJP at 10:00 AM and takes about 7.5 hours. Do the short Darjeeling–Ghum joyride (about ₹800) during the trip instead.</li>
+            </ul>
+          </div>
         </details>
       </div>
+      <p class="muted small">Totals are for all 6, door to door. Bus fares and times were checked on redBus and MakeMyTrip on 20 Oct 2026. Other prices are estimates from travel forums and 2025–26 guides.</p>
 
-      <div class="sub">
+      <div class="sub reveal">
         <h3>The morning, if we take the bus</h3>
         <ol class="timeline">
-          <li><time>6:00</time><span>Arrive at NJP. Grab chai and ignore touts inside the station.</span></li>
-          <li><time>6:15</time><span>Toto or auto to Tenzing Norgay bus stand. Agree the fare first.</span></li>
-          <li><time>7:00</time><span>NBSTC bus to Darjeeling. The 8:00 AM bus is the backup.</span></li>
+          <li><time>06:00</time><span>Arrive at NJP. Grab chai and ignore touts inside the station.</span></li>
+          <li><time>06:15</time><span>Toto or auto to Tenzing Norgay bus stand. Agree the fare first.</span></li>
+          <li><time>07:00</time><span>NBSTC bus to Darjeeling. The 8:00 AM bus is the backup.</span></li>
           <li><time>10–11</time><span>Reach Chowk Bazaar. Taxi to Bubble Beds, below the zoo.</span></li>
-          <li><time>1:00 PM</time><span>Check in. Until then, leave bags at reception and go eat.</span></li>
+          <li><time>13:00</time><span>Check in. Until then, leave bags at reception and go eat.</span></li>
         </ol>
       </div>
-      <p class="muted" style="font-size:0.88rem">Bus fares and times checked on redBus and MakeMyTrip on 20 Oct 2026. Other prices are estimates from travel forums and 2025–26 guides. Ask the hostel the day before which road is open.</p>
     </section>
 
-    <!-- Stay -->
+    <svg class="divider" aria-hidden="true"><use href="#ridge-mini"/></svg>
+
+    <!-- ===== Stay ===== -->
     <section id="stay">
       <div class="sec-head">
-        <span class="eyebrow">21–25 Dec · 4 nights</span>
-        <h2>Bubble Beds</h2>
-        <p class="muted">A backpacker hostel below Darjeeling Zoo, a short walk from the zoo, the ropeway and Happy Valley Tea Estate.</p>
+        <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stay"/></svg></span>
+        <div>
+          <span class="label">21–25 Dec · 4 nights</span>
+          <h2>Bubble Beds</h2>
+          <p class="muted">A backpacker hostel below Darjeeling Zoo, a short walk from the zoo, the ropeway and Happy Valley Tea Estate.</p>
+        </div>
       </div>
-      <dl class="facts">
+      <dl class="facts reveal">
         <div class="wide"><dt>Address</dt><dd>32 Lebong Cart Road, below Darjeeling Zoo, Darjeeling 734101</dd></div>
-        <div><dt>Phone / WhatsApp</dt><dd><span class="num" id="phone">+91 81000 94453</span><button class="copy" type="button" data-copy="+918100094453" aria-label="Copy phone number">Copy</button></dd></div>
-        <div><dt>Check-in / out</dt><dd>1 PM / 11 AM</dd></div>
+        <div><dt>Phone / WhatsApp</dt><dd><span class="num" id="phone">+91 81000 94453</span><button class="copy" type="button" data-copy="+918100094453"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg><span>Copy</span></button></dd></div>
+        <div><dt>Check-in / out</dt><dd class="num">1 PM / 11 AM</dd></div>
         <div><dt>Rooms</dt><dd><span class="tbd">Room type to fill</span></dd></div>
         <div><dt>Booking ref</dt><dd><span class="tbd">To fill</span></dd></div>
         <div><dt>Paid so far</dt><dd><span class="tbd">To fill</span></dd></div>
         <div><dt>Balance</dt><dd>Paid in full at check-in, plus 12% GST</dd></div>
       </dl>
       <div class="grid">
-        <div class="card">
-          <h3>Bring</h3>
+        <div class="card reveal">
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-id"/></svg></span><h3>Bring</h3></div>
           <ul class="list">
-            <li>Government photo ID for everyone: Aadhaar, passport, voter ID or driving licence. PAN isn't accepted.</li>
+            <li>Photo ID for everyone: Aadhaar, passport, voter ID or driving licence. PAN isn't accepted.</li>
             <li>One person's ID stays at reception until check-out, since we're a group of 6.</li>
           </ul>
         </div>
-        <div class="card">
-          <h3>House rules</h3>
+        <div class="card reveal">
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-bed"/></svg></span><h3>House rules</h3></div>
           <ul class="list">
             <li>No smoking, alcohol, food or loud talk in dorms. Quiet after 11 PM.</li>
             <li>Visitors: max 2, 9 AM–7 PM, common area only.</li>
             <li>Little or no power backup during cuts.</li>
           </ul>
         </div>
-        <div class="card">
-          <h3>On site</h3>
+        <div class="card reveal">
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cup"/></svg></span><h3>On site</h3></div>
           <ul class="list">
             <li>Bubble Cafe for breakfast (8–10:30 AM), lunch and dinner. Order at reception.</li>
             <li>Terrace, common room with board games, lockers, laundry.</li>
             <li>Tour desk for Tiger Hill and day trips.</li>
           </ul>
         </div>
-        <div class="card">
-          <h3>Cancellation</h3>
+        <div class="card reveal">
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg></span><h3>Cancellation</h3></div>
           <ul class="list">
             <li>Groups of 4+: free if cancelled 30+ days before.</li>
             <li>50% between 30 and 15 days, full charge within 15 days.</li>
           </ul>
         </div>
       </div>
-      <div class="callout">
-        <strong>Ask them before we go</strong>
-        <span>Room heaters and extra blankets, 24-hour hot water, and the price of an NJP pickup or a Tiger Hill jeep for 6.</span>
+      <div class="callout reveal">
+        <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-phone"/></svg>
+        <div>
+          <strong>Ask them before we go</strong>
+          <span>Room heaters and extra blankets, 24-hour hot water, and the price of an NJP pickup or a Tiger Hill jeep for 6.</span>
+        </div>
       </div>
     </section>
 
-    <!-- Places -->
+    <svg class="divider" aria-hidden="true"><use href="#ridge-mini"/></svg>
+
+    <!-- ===== Places ===== -->
     <section id="places">
       <div class="sec-head">
-        <span class="eyebrow">What to see</span>
-        <h2>Places to cover</h2>
-        <p class="muted">A starter list. We'll trim it to what fits. <span class="tbd">Draft</span></p>
+        <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-places"/></svg></span>
+        <div>
+          <span class="label">What to see</span>
+          <h2>Places to cover</h2>
+          <p class="muted">A starter list. We'll trim it to what fits. <span class="tbd">Draft</span></p>
+        </div>
       </div>
       <div class="grid">
-        <div class="card"><h3>Tiger Hill</h3><p>Sunrise over Kanchenjunga. Leave around 4 AM and carry your warmest layer.</p><span class="meta">22 Dec · about 11 km from town</span></div>
-        <div class="card"><h3>Batasia Loop</h3><p>The toy train's spiral loop with a war memorial and mountain views.</p><span class="meta">22 Dec · on the way back from Tiger Hill</span></div>
-        <div class="card"><h3>Ghoom Monastery</h3><p>One of the oldest Tibetan Buddhist monasteries in the area.</p><span class="meta">22 Dec · near Ghum station</span></div>
-        <div class="card"><h3>Zoo and HMI</h3><p>Red pandas and snow leopards, plus the Himalayan Mountaineering Institute museum.</p><span class="meta">22 Dec · right above the hostel</span></div>
-        <div class="card"><h3>Happy Valley Tea Estate</h3><p>Walk the tea slopes and try fresh Darjeeling tea.</p><span class="meta">24 Dec · walkable from the hostel</span></div>
-        <div class="card"><h3>Ropeway</h3><p>Cable car down over the tea gardens of the Rangeet valley.</p><span class="meta">24 Dec · queues build by late morning</span></div>
-        <div class="card"><h3>Peace Pagoda</h3><p>A white Japanese pagoda with wide views over town.</p><span class="meta">24 Dec</span></div>
-        <div class="card"><h3>Mall and Chowrasta</h3><p>The town square for evening walks, shopping and people-watching.</p><span class="meta">Any evening</span></div>
-        <div class="card"><h3>Lamahatta and Tinchuley</h3><p>Pine forest, a small sacred lake, tea gardens and big valley views.</p><span class="meta">23 Dec day trip</span></div>
-        <div class="card"><h3>Mirik Lake</h3><p>A lake ringed by forest, with boating and an easy walk around it.</p><span class="meta">23 Dec, alternative day trip</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-sunrise"/></svg></span><h3>Tiger Hill</h3></div><p>Sunrise over Kanchenjunga. Leave around 4 AM and wear your warmest layer.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · 11 km from town</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-loop"/></svg></span><h3>Batasia Loop</h3></div><p>The toy train's spiral loop, with a war memorial and mountain views.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · on the way back</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-monastery"/></svg></span><h3>Ghoom Monastery</h3></div><p>One of the oldest Tibetan Buddhist monasteries in the hills.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · near Ghum station</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-paw"/></svg></span><h3>Zoo and HMI</h3></div><p>Red pandas and snow leopards, plus the Himalayan Mountaineering Institute museum.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · right above the hostel</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-tea"/></svg></span><h3>Happy Valley Tea Estate</h3></div><p>Walk the tea slopes and try fresh Darjeeling tea.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>24 Dec · walkable from the hostel</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cablecar"/></svg></span><h3>Ropeway</h3></div><p>Cable car down over the tea gardens of the Rangeet valley.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>24 Dec · queues build by late morning</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stupa"/></svg></span><h3>Peace Pagoda</h3></div><p>A white Japanese pagoda with wide views over town.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>24 Dec</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lamp"/></svg></span><h3>Mall and Chowrasta</h3></div><p>The town square for evening walks, shopping and people-watching.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Any evening</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pine"/></svg></span><h3>Lamahatta and Tinchuley</h3></div><p>Pine forest, a small sacred lake, tea gardens and big valley views.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>23 Dec day trip</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lake"/></svg></span><h3>Mirik Lake</h3></div><p>A lake ringed by forest, with boating and an easy walk around it.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>23 Dec, or instead</span></div>
       </div>
     </section>
 
-    <!-- Food -->
+    <svg class="divider" aria-hidden="true"><use href="#ridge-mini"/></svg>
+
+    <!-- ===== Food ===== -->
     <section id="food">
       <div class="sec-head">
-        <span class="eyebrow">What to eat</span>
-        <h2>Food</h2>
-        <p class="muted">Ideas to start with. Add your own finds. <span class="tbd">Draft</span></p>
+        <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-food"/></svg></span>
+        <div>
+          <span class="label">What to eat</span>
+          <h2>Food</h2>
+          <p class="muted">Ideas to start with. Add your own finds. <span class="tbd">Draft</span></p>
+        </div>
       </div>
       <div class="grid">
-        <div class="card"><h3>Momos and thukpa</h3><p>Steamed or fried momos and a hot noodle soup. Best on a cold evening.</p><span class="meta">Small Tibetan places around Chowk Bazaar and the Mall</span></div>
-        <div class="card"><h3>Darjeeling tea</h3><p>Try a first-flush or a winter blend, and buy some to take home.</p><span class="meta">Tea shops near Chowrasta</span></div>
-        <div class="card"><h3>Old-school bakery breakfast</h3><p>Pastries, sandwiches and hot chocolate in a heritage café.</p><span class="meta">Glenary's or Keventer's on Nehru Road</span></div>
-        <div class="card"><h3>Sha phaley and laphing</h3><p>Tibetan fried meat bread and cold spicy noodles.</p><span class="meta">Ask locals for their favourite stall</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-food"/></svg></span><h3>Momos</h3></div><p>Steamed or fried, with fiery tomato chutney. Best on a cold evening.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pin"/></svg>Around Chowk Bazaar and the Mall</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-noodles"/></svg></span><h3>Thukpa</h3></div><p>A hot Tibetan noodle soup that warms you right up.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pin"/></svg>Small Tibetan places in town</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cup"/></svg></span><h3>Darjeeling tea</h3></div><p>Try a first-flush or a winter blend, and buy some to take home.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pin"/></svg>Tea shops near Chowrasta</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-bread"/></svg></span><h3>Old bakery breakfast</h3></div><p>Pastries, sandwiches and hot chocolate in a heritage café.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pin"/></svg>Glenary's or Keventer's, Nehru Road</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-chili"/></svg></span><h3>Laphing and sha phaley</h3></div><p>Cold spicy noodles and Tibetan fried meat bread.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pin"/></svg>Ask locals for their favourite stall</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lamp"/></svg></span><h3>Christmas Eve dinner</h3></div><p>Somewhere warm in town for the 24th.</p><span class="meta"><span class="tbd">Place to fill</span></span></div>
       </div>
-      <ul class="list muted">
-        <li>Places to try: <span class="tbd">To fill</span></li>
-        <li>Christmas Eve dinner spot: <span class="tbd">To fill</span></li>
-      </ul>
     </section>
 
-    <!-- Packing -->
+    <svg class="divider" aria-hidden="true"><use href="#ridge-mini"/></svg>
+
+    <!-- ===== Pack ===== -->
     <section id="pack">
       <div class="sec-head">
-        <span class="eyebrow">Mid-December, 2–10°C</span>
-        <h2>What to pack</h2>
-      </div>
-      <div class="grid">
-        <div class="card">
-          <h3>Warm stuff</h3>
-          <ul class="list">
-            <li>Heavy jacket, thermals, gloves, a beanie and woollen socks</li>
-            <li>An extra layer for the 4 AM Tiger Hill trip</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Everything else</h3>
-          <ul class="list">
-            <li>Photo ID, and a copy of train tickets</li>
-            <li>Power bank, since power cuts happen</li>
-            <li>Comfortable shoes for steep roads</li>
-            <li>Some cash for totos, stalls and shared jeeps</li>
-          </ul>
+        <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pack"/></svg></span>
+        <div>
+          <span class="label">Mid-December · 2–10°C</span>
+          <h2>What to pack</h2>
+          <p class="muted">Tick things off as you pack. Ticks are saved on your phone only.</p>
         </div>
       </div>
-      <div class="callout">
-        <strong>Photos</strong>
-        <span>We'll put everyone's photos in one Google Photos shared album. <span class="tbd">Link to add</span></span>
+      <div class="check-head"><span class="label">Your checklist</span><span class="small muted num" id="pack-count">0 of 10 packed</span></div>
+      <div class="checks reveal" id="checks">
+        <label class="check"><input type="checkbox" id="pk-jacket"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-jacket"/></svg>Heavy jacket</span></label>
+        <label class="check"><input type="checkbox" id="pk-thermals"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-snow"/></svg>Thermals</span></label>
+        <label class="check"><input type="checkbox" id="pk-gloves"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-snow"/></svg>Gloves, beanie and woollen socks</span></label>
+        <label class="check"><input type="checkbox" id="pk-layer"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-sunrise"/></svg>Extra layer for 4 AM Tiger Hill</span></label>
+        <label class="check"><input type="checkbox" id="pk-shoes"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-boot"/></svg>Comfortable shoes for steep roads</span></label>
+        <label class="check"><input type="checkbox" id="pk-id"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-id"/></svg>Photo ID (not PAN)</span></label>
+        <label class="check"><input type="checkbox" id="pk-ticket"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-ticket"/></svg>Train tickets, offline copy</span></label>
+        <label class="check"><input type="checkbox" id="pk-power"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-battery"/></svg>Power bank, for power cuts</span></label>
+        <label class="check"><input type="checkbox" id="pk-cash"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cash"/></svg>Cash for totos, stalls and jeeps</span></label>
+        <label class="check"><input type="checkbox" id="pk-meds"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg>Motion-sickness tablets for the hill road</span></label>
+      </div>
+      <div class="callout reveal">
+        <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-flag"/></svg>
+        <div>
+          <strong>Trip photos</strong>
+          <span>We'll put everyone's photos in one Google Photos shared album. <span class="tbd">Link to add</span></span>
+        </div>
       </div>
     </section>
 
@@ -486,39 +855,150 @@ footer .wrap { padding-block: 20px 32px; font-size: 0.88rem; color: var(--muted)
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>Darjeeling, December · 20–25 Dec 2026 · Last updated 21 Oct 2026</span>
-    <span>Items marked <span class="tbd">To fill</span> are placeholders until we confirm them.</span>
+  <svg viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+    <path class="f-far" d="M0 70 L0 46 L120 30 L230 42 L360 16 L470 34 L560 8 L640 26 L760 14 L880 36 L1000 22 L1120 38 L1200 28 L1200 70 Z"/>
+    <path class="f-near" d="M0 70 L0 56 C200 40 380 44 560 54 C760 64 960 42 1200 50 L1200 70 Z"/>
+  </svg>
+  <div class="base">
+    <div class="wrap">
+      <strong>Darjeeling, December · 20–25 Dec 2026</strong>
+      <span class="muted">Items marked "To fill" are placeholders until we confirm them. Last updated 21 Oct 2026.</span>
+    </div>
   </div>
 </footer>
 
 <script>
-  // Copy buttons
-  document.querySelectorAll('.copy').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var text = btn.getAttribute('data-copy');
-      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function () {});
-      }
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Theme toggle with a circular reveal ----
+  var themeBtn = document.getElementById('theme');
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function setThemeColor() {
+    var bg = getComputedStyle(root).getPropertyValue('--bg').trim();
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.setAttribute('content', bg); });
+  }
+  themeBtn.addEventListener('click', function (e) {
+    var next = isDark() ? 'light' : 'dark';
+    var apply = function () {
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('darz-theme', next); } catch (err) {}
+      setThemeColor();
+    };
+    if (!document.startViewTransition || reduce) { apply(); return; }
+    var r = themeBtn.getBoundingClientRect();
+    var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    var end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(apply).ready.then(function () {
+      root.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + end + 'px at ' + x + 'px ' + y + 'px)'] },
+        { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)', pseudoElement: '::view-transition-new(root)' });
     });
   });
 
-  // Highlight the section in view
-  var links = Array.prototype.slice.call(document.querySelectorAll('nav.sections a'));
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        links.forEach(function (a) {
-          var on = a.getAttribute('href') === '#' + entry.target.id;
-          a.classList.toggle('on', on);
-          if (on && a.scrollIntoView) a.parentNode.scrollLeft = a.offsetLeft - 16;
-        });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    document.querySelectorAll('main section[id]').forEach(function (s) { observer.observe(s); });
+  // ---- Top bar border once scrolled ----
+  var topbar = document.querySelector('.topbar');
+  var onScroll = function () { topbar.classList.toggle('scrolled', scrollY > 8); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // ---- Active tab with a sliding pill ----
+  var tabs = document.getElementById('tabs');
+  var links = Array.prototype.slice.call(tabs.querySelectorAll('a'));
+  var indicator = tabs.querySelector('.indicator');
+  var current = links[0];
+  function moveIndicator(a) {
+    if (!a) return;
+    indicator.style.width = a.offsetWidth + 'px';
+    indicator.style.transform = 'translateX(' + a.offsetLeft + 'px)';
   }
+  function setActive(a) {
+    current = a;
+    links.forEach(function (l) { l.classList.toggle('on', l === a); if (l === a) l.setAttribute('aria-current', 'true'); else l.removeAttribute('aria-current'); });
+    moveIndicator(a);
+  }
+  setActive(links[0]);
+  addEventListener('resize', function () { moveIndicator(current); });
+  if ('IntersectionObserver' in window) {
+    var secObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var a = tabs.querySelector('a[href="#' + en.target.id + '"]');
+        if (a) setActive(a);
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    document.querySelectorAll('main section[id]').forEach(function (s) { secObs.observe(s); });
+  }
+
+  // ---- Reveal on scroll ----
+  // Set up after load, once the browser has jumped to any #section, and only hide what is still below the screen.
+  function initReveal() {
+    var pending = Array.prototype.slice.call(document.querySelectorAll('.reveal')).filter(function (el) {
+      if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pending'); return true; }
+      return false;
+    });
+    var ticking = false;
+    function check() {
+      ticking = false;
+      pending = pending.filter(function (el) {
+        if (el.getBoundingClientRect().top < innerHeight * 0.94) { el.classList.add('in'); return false; }
+        return true;
+      });
+      if (!pending.length) removeEventListener('scroll', onRevealScroll);
+    }
+    function onRevealScroll() { if (!ticking) { ticking = true; requestAnimationFrame(check); } }
+    addEventListener('scroll', onRevealScroll, { passive: true });
+    addEventListener('resize', onRevealScroll);
+    check();
+  }
+  function onReady() {
+    // Fonts and the hero can shift the layout after the browser's first jump to a #section, so jump again.
+    var target = location.hash && document.getElementById(location.hash.slice(1));
+    var jump = function () { if (target && scrollY < target.offsetTop + 200) target.scrollIntoView({ block: 'start', behavior: 'instant' }); };
+    jump();
+    if (target && document.fonts && document.fonts.ready) document.fonts.ready.then(jump);
+    initReveal();
+  }
+  if (document.readyState === 'complete') onReady(); else addEventListener('load', onReady);
+
+  // ---- Copy phone number ----
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    var label = btn.querySelector('span');
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var done = function () { label.textContent = 'Copied'; setTimeout(function () { label.textContent = 'Copy'; }, 1500); };
+      var fallback = function () {
+        var range = document.createRange(); range.selectNodeContents(document.getElementById('phone'));
+        var sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    });
+  });
+
+  // ---- Packing checklist, saved on this device ----
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checks input'));
+  var count = document.getElementById('pack-count');
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem('darz-pack') || '{}') || {}; } catch (e) {}
+  function updateCount() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    count.textContent = n + ' of ' + boxes.length + ' packed';
+  }
+  boxes.forEach(function (b) {
+    b.checked = !!saved[b.id];
+    b.addEventListener('change', function () {
+      saved[b.id] = b.checked;
+      try { localStorage.setItem('darz-pack', JSON.stringify(saved)); } catch (e) {}
+      updateCount();
+    });
+  });
+  updateCount();
+})();
 </script>
 </body>
 </html>
