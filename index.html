@@ -298,6 +298,29 @@ ol.timeline li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap:
 ol.timeline li:last-child { border-bottom: 0; }
 ol.timeline time { font-family: var(--mono); font-weight: 500; color: var(--tea); }
 
+/* ---------- Plan extras ---------- */
+.todo { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+.todo .check { align-items: flex-start; }
+.todo .check .box { margin-top: 1px; }
+.due { display: inline-block; font-size: 0.72rem; font-weight: 700; color: var(--tea); background: var(--tea-soft); border-radius: 999px; padding: 1px 8px; white-space: nowrap; margin-left: 2px; vertical-align: 1px; }
+ol.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+ol.steps li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; }
+ol.steps time { font-family: var(--mono); font-weight: 500; font-size: 0.86rem; color: var(--tea); padding-top: 2px; }
+.remember { display: flex; gap: 9px; align-items: flex-start; background: var(--surface-2); border-radius: 12px; padding: 10px 12px; font-size: 0.9rem; margin-top: 4px; }
+.remember .i { color: var(--tea); width: 18px; height: 18px; margin-top: 2px; }
+.card-head > div { display: flex; flex-direction: column; min-width: 0; }
+
+/* ---------- Coaches ---------- */
+.people { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 700px) { .people { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.coach { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.coach-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.coach-tag { background: var(--tea); color: var(--surface); border-radius: 8px; padding: 2px 9px; font-size: 0.92rem; }
+.coach ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.coach li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px dashed var(--line); font-weight: 600; }
+.coach li:first-child { border-top: 0; }
+.coach li .mono { font-size: 0.86rem; color: var(--muted); font-weight: 500; white-space: nowrap; }
+
 /* ---------- Packing checklist ---------- */
 .checks { display: flex; flex-direction: column; gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
 .check { display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 52px; border-bottom: 1px solid var(--line); cursor: pointer; transition: background var(--fast); }
@@ -375,6 +398,7 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
     <p class="lede">Everything for the trip in one place: the train, getting up the hill, where we're staying, the plan for each day, what to see and what to eat.</p>
     <div class="chips">
       <span class="chip num"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>20–25 Dec 2026</span>
+      <span class="chip num"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg>16597 · 11:10 from BBS</span>
       <span class="chip"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stay"/></svg>Bubble Beds</span>
       <span class="chip"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-snow"/></svg>2–10°C</span>
     </div>
@@ -429,79 +453,112 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
       <div class="sec-head">
         <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg></span>
         <div>
-          <span class="label">Day by day</span>
+          <span class="label">Six of us · five days</span>
           <h2>The plan</h2>
-          <p class="muted">A rough draft. We'll swap things around once train times and bookings are final.</p>
+          <p class="muted">Times come from our tickets and booking. Sightseeing follows a YouTube guide's Day 1–3, fitted around our dates.</p>
         </div>
       </div>
+
+      <div class="todo reveal">
+        <div class="check-head"><h3>Before we go</h3><span class="small muted num" id="todo-count">0 of 6 done</span></div>
+        <div class="checks" id="todos">
+          <label class="check"><input type="checkbox" id="td-pay"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><span><strong>Pay Bubble Beds ₹13,429</strong> <span class="due">by Sun 13 Dec, 11:59 PM</span><br><span class="small muted">Unpaid bookings are cancelled automatically. Free cancellation until 14 Dec, 12:59 PM.</span></span></span></label>
+          <label class="check"><input type="checkbox" id="td-call"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><span><strong>Call Bubble Beds</strong> <span class="due">early Dec</span><br><span class="small muted">Confirm our Goibibo booking for 6 (their own rules ask groups of 4+ to book direct), heaters, hot water, and dropping bags at 10 AM on 21 Dec.</span></span></span></label>
+          <label class="check"><input type="checkbox" id="td-bus"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><span><strong>Book the 7:00 AM bus for 6</strong> <span class="due">late Nov</span><br><span class="small muted">NBSTC, Siliguri → Darjeeling, Mon 21 Dec, on redBus. Dates open about 3 weeks ahead and only 4–5 seats show online.</span></span></span></label>
+          <label class="check"><input type="checkbox" id="td-joy"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><span><strong>Book the toy train joyride</strong> <span class="due">as soon as possible</span><br><span class="small muted">Darjeeling–Ghum, Wed 23 Dec, on IRCTC. December slots fill up.</span></span></span></label>
+          <label class="check"><input type="checkbox" id="td-return"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><span><strong>Book the train home</strong> <span class="tbd">To fill</span><br><span class="small muted">Fri 25 Dec, NJP → Bhubaneswar. Leave enough time after the 11 AM check-out and the 3–4 h ride down.</span></span></span></label>
+          <label class="check"><input type="checkbox" id="td-6th"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><span><strong>Share the 6th ticket</strong><br><span class="small muted">The second S6 passenger's berth, so it can go on this page.</span></span></span></label>
+        </div>
+        <p class="small muted">Ticks are saved on your phone only.</p>
+      </div>
+
       <div class="days">
         <div class="day reveal">
           <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></span>
           <div class="body">
-            <span class="when num">Sun 20 Dec</span>
-            <h3>Leave Bhubaneswar</h3>
-            <ul>
-              <li>Board the train to NJP. <span class="tbd">Train &amp; time to fill</span></li>
-              <li>Overnight on the train.</li>
-            </ul>
+            <span class="when num">Sun 20 Dec · Travel day</span>
+            <h3>On the train</h3>
+            <ol class="steps">
+              <li><time>10:30</time><span>Meet at Bhubaneswar station (BBS).</span></li>
+              <li><time>11:10</time><span>Train 16597 Amrit Bharat leaves. Five of us board here: three in S5, two in S6.</span></li>
+              <li><time>16:43</time><span>Ashutosh K. boards at Kharagpur, coach S8.</span></li>
+              <li><time>Night</time><span>Overnight on the train.</span></li>
+            </ol>
+            <p class="remember"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg><span>Carry lunch and dinner, or order food on the train through IRCTC e-catering. Sleeper class has no bedding, so bring a shawl or light blanket. Lock bags to the berth at night.</span></p>
           </div>
         </div>
+
         <div class="day reveal">
           <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-road"/></svg></span>
           <div class="body">
-            <span class="when num">Mon 21 Dec</span>
+            <span class="when num">Mon 21 Dec · Day 1</span>
             <h3>Up the hill</h3>
-            <ul>
-              <li>Reach NJP around 6 AM and take the 7:00 or 8:00 AM bus up from Siliguri.</li>
-              <li>Leave bags at Bubble Beds and check in at 1 PM.</li>
-              <li>Evening on the Mall and at Chowrasta. Take it easy on day one.</li>
-            </ul>
+            <ol class="steps">
+              <li><time>04:50</time><span>Reach NJP. Washrooms, chai, and a breather in the station. Check the live status, since trains often run late.</span></li>
+              <li><time>06:00</time><span>Toto to Tenzing Norgay bus stand in Siliguri, about 25 min.</span></li>
+              <li><time>07:00</time><span>NBSTC bus to Darjeeling. The 8:00 AM bus is the backup.</span></li>
+              <li><time>~10:00</time><span>Reach Chowk Bazaar, then a taxi to Bubble Beds. Leave bags at reception and get brunch.</span></li>
+              <li><time>13:00</time><span>Check in, freshen up, rest.</span></li>
+              <li><time>Evening</time><span>Mahakal Temple on Observatory Hill, then Mall Road and Chowrasta. Book the cab for Day 2 and the Tiger Hill trip. Dinner.</span></li>
+            </ol>
+            <p class="remember"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg><span>Keep your photo ID handy for check-in (not PAN). Dawn at NJP and the bus ride are cold, so keep your jacket in your day bag, not the big bag.</span></p>
           </div>
         </div>
+
+        <div class="day reveal">
+          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cablecar"/></svg></span>
+          <div class="body">
+            <span class="when num">Tue 22 Dec · Day 2</span>
+            <h3>Around town</h3>
+            <ol class="steps">
+              <li><time>Morning</time><span>Zoo and Himalayan Mountaineering Institute, a short walk up from the hostel. Go when it opens.</span></li>
+              <li><time>Late morning</time><span>Ropeway, Tenzing Rock and Happy Valley Tea Estate. All three are on our side of town.</span></li>
+              <li><time>Afternoon</time><span>By cab: Rock Garden, then Japanese Temple and Peace Pagoda for the late-afternoon views.</span></li>
+              <li><time>Evening</time><span>Early dinner and early night. Tomorrow starts at 3:45 AM.</span></li>
+            </ol>
+            <p class="remember"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg><span>Carry cash for entry tickets and the ropeway. The ropeway queue gets long by late morning.</span></p>
+          </div>
+        </div>
+
         <div class="day reveal">
           <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-sunrise"/></svg></span>
           <div class="body">
-            <span class="when num">Tue 22 Dec</span>
-            <h3>Tiger Hill sunrise and the town</h3>
-            <ul>
-              <li>Leave around 4 AM for Tiger Hill to see the sunrise on Kanchenjunga.</li>
-              <li>Ghoom Monastery and Batasia Loop on the way back.</li>
-              <li>Zoo and the Himalayan Mountaineering Institute, right next to the hostel.</li>
-            </ul>
+            <span class="when num">Wed 23 Dec · Day 3</span>
+            <h3>Tiger Hill sunrise</h3>
+            <ol class="steps">
+              <li><time>03:45</time><span>Cab picks us up at the hostel.</span></li>
+              <li><time>~06:15</time><span>Sunrise on Kanchenjunga from Tiger Hill.</span></li>
+              <li><time>After</time><span>Ghoom Monastery, then Batasia Loop on the way back.</span></li>
+              <li><time>~09:30</time><span>Back for breakfast and a nap.</span></li>
+              <li><time>Afternoon</time><span>Toy train joyride, Darjeeling–Ghum. <span class="tbd">Slot to fill</span></span></li>
+            </ol>
+            <p class="remember"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg><span>Wear every warm layer you have. Tiger Hill is around freezing before sunrise.</span></p>
           </div>
         </div>
+
         <div class="day reveal">
           <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pine"/></svg></span>
           <div class="body">
-            <span class="when num">Wed 23 Dec</span>
-            <h3>Day trip</h3>
-            <ul>
-              <li>Lamahatta, Takdah and Tinchuley: pine forest, tea gardens, valley views.</li>
-              <li>Or Mirik Lake instead. <span class="tbd">Pick one</span></li>
-            </ul>
+            <span class="when num">Thu 24 Dec · Day 4</span>
+            <h3>Free day and Christmas Eve</h3>
+            <ol class="steps">
+              <li><time>Day</time><span>Day trip to Lamahatta and Tinchuley, or Mirik Lake. Or a slow day with breakfast at Glenary's and some shopping. <span class="tbd">Pick one</span></span></li>
+              <li><time>Evening</time><span>Christmas Eve on the Mall. <span class="tbd">Dinner place to fill</span></span></li>
+            </ol>
+            <p class="remember"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg><span>Pack tonight. Check-out is 11 AM tomorrow.</span></p>
           </div>
         </div>
-        <div class="day reveal">
-          <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-tea"/></svg></span>
-          <div class="body">
-            <span class="when num">Thu 24 Dec</span>
-            <h3>Tea, ropeway, Christmas Eve</h3>
-            <ul>
-              <li>Happy Valley Tea Estate in the morning.</li>
-              <li>Ropeway ride and the Peace Pagoda.</li>
-              <li>Christmas Eve dinner in town.</li>
-            </ul>
-          </div>
-        </div>
+
         <div class="day reveal">
           <span class="leaf"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pack"/></svg></span>
           <div class="body">
-            <span class="when num">Fri 25 Dec</span>
-            <h3>Head home</h3>
-            <ul>
-              <li>Check out by 11 AM, then down to NJP.</li>
-              <li>Train back to Bhubaneswar. <span class="tbd">Train &amp; time to fill</span></li>
-            </ul>
+            <span class="when num">Fri 25 Dec · Going home</span>
+            <h3>Down the hill</h3>
+            <ol class="steps">
+              <li><time>by 11:00</time><span>Check out and collect the GST invoice.</span></li>
+              <li><time>Then</time><span>Shared jeep or cab down to NJP, about 3–4 h.</span></li>
+              <li><time>Train</time><span>Home to Bhubaneswar. <span class="tbd">Train &amp; time to fill</span></span></li>
+            </ol>
           </div>
         </div>
       </div>
@@ -514,7 +571,7 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
       <div class="sec-head">
         <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></span>
         <div>
-          <span class="label">20 Dec · Overnight</span>
+          <span class="label">Sun 20 Dec · 17 h 40 min</span>
           <h2>The train</h2>
         </div>
       </div>
@@ -527,18 +584,46 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
             <div class="place end"><span class="code">NJP</span><span class="small muted">New Jalpaiguri</span></div>
           </div>
           <dl class="tfields">
-            <div><dt>Train</dt><dd><span class="tbd">To fill</span></dd></div>
-            <div><dt>Class / coach</dt><dd><span class="tbd">To fill</span></dd></div>
-            <div><dt>Leaves</dt><dd>Sun 20 Dec · <span class="tbd">Time</span></dd></div>
-            <div><dt>Arrives</dt><dd>Mon 21 Dec · ~06:00</dd></div>
+            <div><dt>Train</dt><dd>16597 Amrit Bharat</dd></div>
+            <div><dt>Class</dt><dd>Sleeper (SL)</dd></div>
+            <div><dt>Leaves</dt><dd>Sun 20 Dec · 11:10</dd></div>
+            <div><dt>Arrives</dt><dd>Mon 21 Dec · 04:50</dd></div>
           </dl>
         </div>
         <div class="stub">
           <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-ticket"/></svg>
-          <div><div class="label">PNR</div><div class="mono"><span class="tbd">To fill</span></div></div>
-          <div><div class="label">Berths</div><div class="mono"><span class="tbd">To fill</span></div></div>
+          <div><div class="label">Tickets</div><div class="mono">3 PNRs</div></div>
+          <div><div class="label">Status</div><div class="mono">CNF</div></div>
         </div>
       </article>
+
+      <div class="sub reveal">
+        <h3>Who's where</h3>
+        <div class="people">
+          <div class="coach">
+            <div class="coach-head"><span class="coach-tag mono">S5</span><span class="small muted">Boards at BBS · PNR ending 9787</span></div>
+            <ul>
+              <li><span>Arpan</span><span class="mono">36 · Lower</span></li>
+              <li><span>Ashutosh S.</span><span class="mono">32 · Side upper</span></li>
+              <li><span>Ayush</span><span class="mono">37 · Middle</span></li>
+            </ul>
+          </div>
+          <div class="coach">
+            <div class="coach-head"><span class="coach-tag mono">S6</span><span class="small muted">Boards at BBS</span></div>
+            <ul>
+              <li><span>Anubhav</span><span class="mono">40 · Side upper</span></li>
+              <li><span>6th person</span><span><span class="tbd">To fill</span></span></li>
+            </ul>
+            <p class="small muted">Anubhav's PNR ends 9868.</p>
+          </div>
+          <div class="coach">
+            <div class="coach-head"><span class="coach-tag mono">S8</span><span class="small muted">Boards at Kharagpur, 16:43 · PNR ending 1905</span></div>
+            <ul>
+              <li><span>Ashutosh K.</span><span class="mono">14 · Upper</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
       <article class="ticket small reveal" aria-label="Return train ticket">
         <div class="main">
@@ -554,20 +639,18 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
         </div>
         <div class="stub">
           <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-ticket"/></svg>
-          <div><div class="label">PNR</div><div class="mono"><span class="tbd">To fill</span></div></div>
+          <div><div class="label">Status</div><div class="mono"><span class="tbd">Not booked</span></div></div>
         </div>
       </article>
 
       <div class="callout reveal">
         <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg>
         <div>
-          <strong>Before boarding</strong>
-          <span>Keep an offline copy of the ticket and the ID used to book it. Pack a warm layer in your day bag: NJP at 6 AM is cold.</span>
+          <strong>On the day</strong>
+          <span>Keep the ticket on your phone offline and carry the ID it was booked with. We're spread over three coaches, so meet up at a long halt. Ashutosh K. joins at Kharagpur. The train reaches NJP before 5 AM, so set an alarm.</span>
         </div>
       </div>
     </section>
-
-    <svg class="divider" aria-hidden="true"><use href="#ridge-mini"/></svg>
 
     <!-- ===== Uphill ===== -->
     <section id="uphill">
@@ -576,7 +659,7 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
         <div>
           <span class="label">21 Dec · about 70 km, 2,000 m up</span>
           <h2>NJP → Darjeeling</h2>
-          <p class="muted">Every way up if we land at NJP around 6 AM. Our budget is ₹2,000–2,500 for all six.</p>
+          <p class="muted">Our train reaches NJP at 04:50, so there's time before the 7:00 AM bus. Budget: ₹2,000–2,500 for all six.</p>
         </div>
       </div>
 
@@ -674,7 +757,7 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
           </summary>
           <div class="more">
             <ul>
-              <li>Their tour package includes NJP pickup. If it's close to the Sumo fare, a driver waits for us at 6 AM.</li>
+              <li>Their tour package includes NJP pickup. If it's close to the Sumo fare, a driver waits for us when the train gets in.</li>
             </ul>
           </div>
         </details>
@@ -698,8 +781,9 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
       <div class="sub reveal">
         <h3>The morning, if we take the bus</h3>
         <ol class="timeline">
-          <li><time>06:00</time><span>Arrive at NJP. Grab chai and ignore touts inside the station.</span></li>
-          <li><time>06:15</time><span>Toto or auto to Tenzing Norgay bus stand. Agree the fare first.</span></li>
+          <li><time>04:50</time><span>Arrive at NJP. Washrooms and chai. Ignore touts inside the station.</span></li>
+          <li><time>06:00</time><span>Head out once it's light.</span></li>
+          <li><time>06:05</time><span>Toto or auto to Tenzing Norgay bus stand. Agree the fare first.</span></li>
           <li><time>07:00</time><span>NBSTC bus to Darjeeling. The 8:00 AM bus is the backup.</span></li>
           <li><time>10–11</time><span>Reach Chowk Bazaar. Taxi to Bubble Beds, below the zoo.</span></li>
           <li><time>13:00</time><span>Check in. Until then, leave bags at reception and go eat.</span></li>
@@ -714,57 +798,63 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
       <div class="sec-head">
         <span class="badge"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stay"/></svg></span>
         <div>
-          <span class="label">21–25 Dec · 4 nights</span>
+          <span class="label">Mon 21 – Fri 25 Dec · 4 nights</span>
           <h2>Bubble Beds</h2>
           <p class="muted">A backpacker hostel below Darjeeling Zoo, a short walk from the zoo, the ropeway and Happy Valley Tea Estate.</p>
         </div>
       </div>
+
+      <div class="grid rooms">
+        <div class="card reveal">
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-sunrise"/></svg></span><div><h3>Room 3C</h3><span class="small muted">Triple private room, mountain view</span></div></div>
+          <p>1 double bed for 3 of us. <span class="tbd">Who to fill</span></p>
+        </div>
+        <div class="card reveal">
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-bed"/></svg></span><div><h3>Dorm 1E</h3><span class="small muted">8-bed mixed dorm</span></div></div>
+          <p>3 bunk beds for the other 3. <span class="tbd">Who to fill</span></p>
+        </div>
+      </div>
+
       <dl class="facts reveal">
+        <div><dt>Check-in</dt><dd>Mon 21 Dec, after 1 PM</dd></div>
+        <div><dt>Check-out</dt><dd>Fri 25 Dec, before 11 AM</dd></div>
         <div class="wide"><dt>Address</dt><dd>32 Lebong Cart Road, below Darjeeling Zoo, Darjeeling 734101</dd></div>
-        <div><dt>Phone / WhatsApp</dt><dd><span class="num" id="phone">+91 81000 94453</span><button class="copy" type="button" data-copy="+918100094453"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg><span>Copy</span></button></dd></div>
-        <div><dt>Check-in / out</dt><dd class="num">1 PM / 11 AM</dd></div>
-        <div><dt>Rooms</dt><dd><span class="tbd">Room type to fill</span></dd></div>
-        <div><dt>Booking ref</dt><dd><span class="tbd">To fill</span></dd></div>
-        <div><dt>Paid so far</dt><dd><span class="tbd">To fill</span></dd></div>
-        <div><dt>Balance</dt><dd>Paid in full at check-in, plus 12% GST</dd></div>
+        <div><dt>Phone (booking)</dt><dd><span class="num" id="phone">+91 97488 72090</span><button class="copy" type="button" data-copy="+919748872090" data-target="phone"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg><span>Copy</span></button></dd></div>
+        <div><dt>Phone (website)</dt><dd><span class="num" id="phone2">+91 81000 94453</span><button class="copy" type="button" data-copy="+918100094453" data-target="phone2"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg><span>Copy</span></button></dd></div>
+        <div><dt>Email</dt><dd>contact@bubblebeds.in</dd></div>
+        <div><dt>Booked on</dt><dd>Goibibo, under Ashutosh Singh</dd></div>
+        <div><dt>Total</dt><dd class="num">₹13,429 · about ₹2,238 each</dd></div>
+        <div><dt>Paid</dt><dd class="num">₹0 · due by Sun 13 Dec, 11:59 PM</dd></div>
+        <div class="wide"><dt>Cancellation</dt><dd>Free until Mon 14 Dec, 12:59 PM</dd></div>
       </dl>
+
       <div class="grid">
         <div class="card reveal">
           <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-id"/></svg></span><h3>Bring</h3></div>
           <ul class="list">
-            <li>Photo ID for everyone: Aadhaar, passport, voter ID or driving licence. PAN isn't accepted.</li>
-            <li>One person's ID stays at reception until check-out, since we're a group of 6.</li>
+            <li>Photo ID for all 6: passport, Aadhaar, driving licence or another government ID. PAN isn't accepted.</li>
+            <li>Ask for the GST invoice at check-in and collect it at check-out.</li>
           </ul>
         </div>
         <div class="card reveal">
-          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-bed"/></svg></span><h3>House rules</h3></div>
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cup"/></svg></span><h3>Meals</h3></div>
           <ul class="list">
-            <li>No smoking, alcohol, food or loud talk in dorms. Quiet after 11 PM.</li>
+            <li>No meals are included. Bubble Cafe serves breakfast (8–10:30 AM), lunch and dinner. Order at reception.</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-bed"/></svg></span><h3>Dorm rules</h3></div>
+          <ul class="list">
+            <li>No smoking, alcohol, food or loud talk in the dorm. Quiet after 11 PM.</li>
             <li>Visitors: max 2, 9 AM–7 PM, common area only.</li>
-            <li>Little or no power backup during cuts.</li>
           </ul>
         </div>
         <div class="card reveal">
-          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cup"/></svg></span><h3>On site</h3></div>
+          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-battery"/></svg></span><h3>Good to know</h3></div>
           <ul class="list">
-            <li>Bubble Cafe for breakfast (8–10:30 AM), lunch and dinner. Order at reception.</li>
-            <li>Terrace, common room with board games, lockers, laundry.</li>
-            <li>Tour desk for Tiger Hill and day trips.</li>
+            <li>Little or no power backup during cuts. Keep phones charged.</li>
+            <li>Terrace, common room with board games, lockers, laundry and a tour desk.</li>
           </ul>
-        </div>
-        <div class="card reveal">
-          <div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg></span><h3>Cancellation</h3></div>
-          <ul class="list">
-            <li>Groups of 4+: free if cancelled 30+ days before.</li>
-            <li>50% between 30 and 15 days, full charge within 15 days.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="callout reveal">
-        <svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-phone"/></svg>
-        <div>
-          <strong>Ask them before we go</strong>
-          <span>Room heaters and extra blankets, 24-hour hot water, and the price of an NJP pickup or a Tiger Hill jeep for 6.</span>
         </div>
       </div>
     </section>
@@ -778,20 +868,25 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
         <div>
           <span class="label">What to see</span>
           <h2>Places to cover</h2>
-          <p class="muted">A starter list. We'll trim it to what fits. <span class="tbd">Draft</span></p>
+          <p class="muted">Everything on the plan, in the order we'll see it.</p>
         </div>
       </div>
       <div class="grid">
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-sunrise"/></svg></span><h3>Tiger Hill</h3></div><p>Sunrise over Kanchenjunga. Leave around 4 AM and wear your warmest layer.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · 11 km from town</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-loop"/></svg></span><h3>Batasia Loop</h3></div><p>The toy train's spiral loop, with a war memorial and mountain views.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · on the way back</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-monastery"/></svg></span><h3>Ghoom Monastery</h3></div><p>One of the oldest Tibetan Buddhist monasteries in the hills.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · near Ghum station</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-paw"/></svg></span><h3>Zoo and HMI</h3></div><p>Red pandas and snow leopards, plus the Himalayan Mountaineering Institute museum.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>22 Dec · right above the hostel</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-tea"/></svg></span><h3>Happy Valley Tea Estate</h3></div><p>Walk the tea slopes and try fresh Darjeeling tea.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>24 Dec · walkable from the hostel</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cablecar"/></svg></span><h3>Ropeway</h3></div><p>Cable car down over the tea gardens of the Rangeet valley.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>24 Dec · queues build by late morning</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stupa"/></svg></span><h3>Peace Pagoda</h3></div><p>A white Japanese pagoda with wide views over town.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>24 Dec</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lamp"/></svg></span><h3>Mall and Chowrasta</h3></div><p>The town square for evening walks, shopping and people-watching.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Any evening</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pine"/></svg></span><h3>Lamahatta and Tinchuley</h3></div><p>Pine forest, a small sacred lake, tea gardens and big valley views.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>23 Dec day trip</span></div>
-        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lake"/></svg></span><h3>Mirik Lake</h3></div><p>A lake ringed by forest, with boating and an easy walk around it.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>23 Dec, or instead</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lamp"/></svg></span><h3>Mahakal Temple</h3></div><p>A hilltop shrine on Observatory Hill, just above Chowrasta, strung with prayer flags.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Mon 21 Dec · evening</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lamp"/></svg></span><h3>Mall and Chowrasta</h3></div><p>The town square for evening walks, shopping and people-watching.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Mon 21 Dec, and any evening</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-paw"/></svg></span><h3>Zoo and HMI</h3></div><p>Red pandas and snow leopards, plus the Himalayan Mountaineering Institute museum.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Tue 22 Dec · right above the hostel</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cablecar"/></svg></span><h3>Ropeway</h3></div><p>Cable car down over the tea gardens of the Rangeet valley.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Tue 22 Dec · go before the queues</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-places"/></svg></span><h3>Tenzing Rock</h3></div><p>A huge boulder named after Tenzing Norgay, where climbers practise.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Tue 22 Dec · on Lebong Cart Road</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-tea"/></svg></span><h3>Happy Valley Tea Estate</h3></div><p>Walk the tea slopes and try fresh Darjeeling tea.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Tue 22 Dec · walkable from the hostel</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pine"/></svg></span><h3>Rock Garden</h3></div><p>Terraced gardens and a waterfall in a valley below town.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Tue 22 Dec · by cab</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-monastery"/></svg></span><h3>Japanese Temple</h3></div><p>A quiet Buddhist temple on the way to the Peace Pagoda.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Tue 22 Dec · afternoon</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-stupa"/></svg></span><h3>Peace Pagoda</h3></div><p>A white pagoda with wide views over town.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Tue 22 Dec · late afternoon</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-sunrise"/></svg></span><h3>Tiger Hill</h3></div><p>Sunrise over Kanchenjunga. Leave at 3:45 AM in your warmest layers.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Wed 23 Dec · about 11 km from town</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-monastery"/></svg></span><h3>Ghoom Monastery</h3></div><p>One of the oldest Tibetan Buddhist monasteries in the hills.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Wed 23 Dec · after Tiger Hill</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-loop"/></svg></span><h3>Batasia Loop</h3></div><p>The toy train's spiral loop, with a war memorial and mountain views.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Wed 23 Dec · on the way back</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg></span><h3>Toy train joyride</h3></div><p>A heritage steam or diesel ride from Darjeeling to Ghum and back.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Wed 23 Dec · book on IRCTC</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-pine"/></svg></span><h3>Lamahatta and Tinchuley</h3></div><p>Pine forest, a small sacred lake, tea gardens and big valley views.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Thu 24 Dec · day trip option</span></div>
+        <div class="card reveal"><div class="card-head"><span class="icon"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lake"/></svg></span><h3>Mirik Lake</h3></div><p>A lake ringed by forest, with boating and an easy walk around it.</p><span class="meta"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-plan"/></svg>Thu 24 Dec · day trip option</span></div>
       </div>
     </section>
 
@@ -829,7 +924,7 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
           <p class="muted">Tick things off as you pack. Ticks are saved on your phone only.</p>
         </div>
       </div>
-      <div class="check-head"><span class="label">Your checklist</span><span class="small muted num" id="pack-count">0 of 10 packed</span></div>
+      <div class="check-head"><span class="label">Your checklist</span><span class="small muted num" id="pack-count">0 of 11 packed</span></div>
       <div class="checks reveal" id="checks">
         <label class="check"><input type="checkbox" id="pk-jacket"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-jacket"/></svg>Heavy jacket</span></label>
         <label class="check"><input type="checkbox" id="pk-thermals"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-snow"/></svg>Thermals</span></label>
@@ -840,6 +935,7 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
         <label class="check"><input type="checkbox" id="pk-ticket"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-ticket"/></svg>Train tickets, offline copy</span></label>
         <label class="check"><input type="checkbox" id="pk-power"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-battery"/></svg>Power bank, for power cuts</span></label>
         <label class="check"><input type="checkbox" id="pk-cash"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-cash"/></svg>Cash for totos, stalls and jeeps</span></label>
+        <label class="check"><input type="checkbox" id="pk-shawl"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-train"/></svg>Shawl or light blanket for the train</span></label>
         <label class="check"><input type="checkbox" id="pk-meds"><span class="box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg></span><span class="what"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-info"/></svg>Motion-sickness tablets for the hill road</span></label>
       </div>
       <div class="callout reveal">
@@ -972,7 +1068,7 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
       var text = btn.getAttribute('data-copy');
       var done = function () { label.textContent = 'Copied'; setTimeout(function () { label.textContent = 'Copy'; }, 1500); };
       var fallback = function () {
-        var range = document.createRange(); range.selectNodeContents(document.getElementById('phone'));
+        var range = document.createRange(); range.selectNodeContents(document.getElementById(btn.getAttribute('data-target')));
         var sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
@@ -980,24 +1076,28 @@ footer .base .muted { color: var(--fg); opacity: 0.75; }
     });
   });
 
-  // ---- Packing checklist, saved on this device ----
-  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checks input'));
-  var count = document.getElementById('pack-count');
-  var saved = {};
-  try { saved = JSON.parse(localStorage.getItem('darz-pack') || '{}') || {}; } catch (e) {}
-  function updateCount() {
-    var n = boxes.filter(function (b) { return b.checked; }).length;
-    count.textContent = n + ' of ' + boxes.length + ' packed';
-  }
-  boxes.forEach(function (b) {
-    b.checked = !!saved[b.id];
-    b.addEventListener('change', function () {
-      saved[b.id] = b.checked;
-      try { localStorage.setItem('darz-pack', JSON.stringify(saved)); } catch (e) {}
-      updateCount();
+  // ---- Checklists (before-we-go and packing), saved on this device ----
+  function checklist(listId, countId, key, word) {
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('#' + listId + ' input'));
+    var count = document.getElementById(countId);
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch (e) {}
+    function update() {
+      var n = boxes.filter(function (b) { return b.checked; }).length;
+      count.textContent = n + ' of ' + boxes.length + ' ' + word;
+    }
+    boxes.forEach(function (b) {
+      b.checked = !!saved[b.id];
+      b.addEventListener('change', function () {
+        saved[b.id] = b.checked;
+        try { localStorage.setItem(key, JSON.stringify(saved)); } catch (e) {}
+        update();
+      });
     });
-  });
-  updateCount();
+    update();
+  }
+  checklist('todos', 'todo-count', 'darz-todo', 'done');
+  checklist('checks', 'pack-count', 'darz-pack', 'packed');
 })();
 </script>
 </body>
